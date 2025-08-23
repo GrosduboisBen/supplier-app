@@ -12,6 +12,7 @@ import { ProjectsComponent } from './components/projects/projects.component';
 import { ProviderComponent } from './components/provider/provider.component';
 import { MissionsComponent } from './components/missions/missions.component';
 import { OrdersComponent } from './components/orders/orders.component';
+import { EvaluationsComponent } from './components/evaluations/evaluations.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -20,6 +21,7 @@ import { OrdersComponent } from './components/orders/orders.component';
     ProviderComponent,
     MissionsComponent,
     OrdersComponent,
+    EvaluationsComponent,
   ],
   imports: [
     BrowserModule,
