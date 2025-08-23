@@ -1,11 +1,12 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { of } from 'rxjs';
 import { ProjectsComponent } from './projects.component';
 import { Project } from 'src/app/models/project';
 import { MatTableModule } from '@angular/material/table';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ProjectService } from 'src/app/services/project.service';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('ProjectsComponent', () => {
   let component: ProjectsComponent;
@@ -16,10 +17,10 @@ describe('ProjectsComponent', () => {
     const projectServiceSpy = jasmine.createSpyObj('ProjectService', ['getProjects']);
 
     await TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule, MatTableModule, BrowserAnimationsModule],
-      declarations: [ProjectsComponent],
-      providers: [{ provide: ProjectService, useValue: projectServiceSpy }]
-    }).compileComponents();
+    declarations: [ProjectsComponent],
+    imports: [MatTableModule, BrowserAnimationsModule],
+    providers: [{ provide: ProjectService, useValue: projectServiceSpy }, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+}).compileComponents();
 
     projectService = TestBed.inject(ProjectService) as jasmine.SpyObj<ProjectService>;
   });
