@@ -4,9 +4,10 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Project } from 'src/app/models/project';
 
 @Component({
-  selector: 'app-projects',
-  templateUrl: './projects.component.html',
-  styleUrls: ['./projects.component.scss']
+    selector: 'app-projects',
+    templateUrl: './projects.component.html',
+    styleUrls: ['./projects.component.scss'],
+    standalone: false
 })
 export class ProjectsComponent implements OnInit {
   displayedColumns: string[] = ['id', 'title', 'description', 'budget', 'company'];

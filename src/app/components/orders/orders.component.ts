@@ -4,9 +4,10 @@ import { OrderService } from 'src/app/services/order.service';
 import { Order } from 'src/app/models/order';
 
 @Component({
-  selector: 'app-orders',
-  templateUrl: './orders.component.html',
-  styleUrls: ['./orders.component.scss']
+    selector: 'app-orders',
+    templateUrl: './orders.component.html',
+    styleUrls: ['./orders.component.scss'],
+    standalone: false
 })
 export class OrdersComponent implements OnInit {
   displayedColumns: string[] = ['id', 'description', 'quantity', 'status', 'projectId', 'providerId'];

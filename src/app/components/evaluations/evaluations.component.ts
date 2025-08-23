@@ -4,9 +4,10 @@ import { EvaluationService } from 'src/app/services/evaluation.service';
 import { Evaluation } from 'src/app/models/evaluation';
 
 @Component({
-  selector: 'app-evaluations',
-  templateUrl: './evaluations.component.html',
-  styleUrls: ['./evaluations.component.scss']
+    selector: 'app-evaluations',
+    templateUrl: './evaluations.component.html',
+    styleUrls: ['./evaluations.component.scss'],
+    standalone: false
 })
 export class EvaluationsComponent implements OnInit {
   displayedColumns: string[] = ['id', 'rating', 'comment', 'missionId'];

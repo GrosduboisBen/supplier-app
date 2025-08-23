@@ -4,9 +4,10 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Mission } from 'src/app/models/mission';
 
 @Component({
-  selector: 'app-missions',
-  templateUrl: './missions.component.html',
-  styleUrls: ['./missions.component.scss']
+    selector: 'app-missions',
+    templateUrl: './missions.component.html',
+    styleUrls: ['./missions.component.scss'],
+    standalone: false
 })
 export class MissionsComponent implements OnInit {
   displayedColumns: string[] = ['id', 'title', 'description', 'startDate', 'endDate', 'orderId', 'actions'];
