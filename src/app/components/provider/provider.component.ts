@@ -1,5 +1,7 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
+import { MATERIAL_IMPORTS } from 'material.import';
 import { Provider } from 'src/app/models/provider';
 import { ProviderService } from 'src/app/services/provider.service';
 
@@ -7,7 +9,11 @@ import { ProviderService } from 'src/app/services/provider.service';
     selector: 'app-provider',
     templateUrl: './provider.component.html',
     styleUrls: ['./provider.component.scss'],
-    standalone: false
+    standalone: true,
+    imports: [
+      CommonModule,
+      ...MATERIAL_IMPORTS
+    ],
 })
 export class ProviderComponent implements OnInit {
   displayedColumns: string[] = ['id', 'name', 'email', 'contact', 'category'];

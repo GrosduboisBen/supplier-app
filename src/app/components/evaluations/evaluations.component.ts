@@ -2,12 +2,18 @@ import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { EvaluationService } from 'src/app/services/evaluation.service';
 import { Evaluation } from 'src/app/models/evaluation';
+import { CommonModule } from '@angular/common';
+import { MATERIAL_IMPORTS } from 'material.import';
 
 @Component({
     selector: 'app-evaluations',
     templateUrl: './evaluations.component.html',
     styleUrls: ['./evaluations.component.scss'],
-    standalone: false
+    standalone: true,
+    imports: [
+      CommonModule,
+      ...MATERIAL_IMPORTS
+    ],
 })
 export class EvaluationsComponent implements OnInit {
   displayedColumns: string[] = ['id', 'rating', 'comment', 'missionId'];
