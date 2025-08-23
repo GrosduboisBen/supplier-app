@@ -11,6 +11,7 @@ import { MatTableModule } from '@angular/material/table';
 import { ProjectsComponent } from './components/projects/projects.component';
 import { ProviderComponent } from './components/provider/provider.component';
 import { MissionsComponent } from './components/missions/missions.component';
+import { OrdersComponent } from './components/orders/orders.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -18,6 +19,7 @@ import { MissionsComponent } from './components/missions/missions.component';
     ProjectsComponent,
     ProviderComponent,
     MissionsComponent,
+    OrdersComponent,
   ],
   imports: [
     BrowserModule,
