@@ -8,10 +8,12 @@ import { CompanyListComponent } from './components/companies/company-list/compan
 import { MatCardModule } from '@angular/material/card';
 import { HttpClientModule } from '@angular/common/http';
 import { MatTableModule } from '@angular/material/table';
+import { ProjectsComponent } from './components/projects/projects.component';
 @NgModule({
   declarations: [
     AppComponent,
     CompanyListComponent,
+    ProjectsComponent,
   ],
   imports: [
     BrowserModule,
