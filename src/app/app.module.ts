@@ -9,11 +9,15 @@ import { MatCardModule } from '@angular/material/card';
 import { HttpClientModule } from '@angular/common/http';
 import { MatTableModule } from '@angular/material/table';
 import { ProjectsComponent } from './components/projects/projects.component';
+import { ProviderComponent } from './components/provider/provider.component';
+import { MissionsComponent } from './components/missions/missions.component';
 @NgModule({
   declarations: [
     AppComponent,
     CompanyListComponent,
     ProjectsComponent,
+    ProviderComponent,
+    MissionsComponent,
   ],
   imports: [
     BrowserModule,
