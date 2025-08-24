@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, NavigationEnd } from '@angular/router';
+import { Router, NavigationEnd, RouterModule } from '@angular/router';
 import { MATERIAL_IMPORTS } from 'material.import';
 import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-header',
   imports: [
-    ...MATERIAL_IMPORTS
+    ...MATERIAL_IMPORTS,
+    RouterModule
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
@@ -34,6 +35,9 @@ export class HeaderComponent implements OnInit {
         break;
       case '/projects':
         this.subtitle = 'Projects';
+        break;
+      case '/providers':
+        this.subtitle = 'Providers';
         break;
       case '/orders':
         this.subtitle = 'Orders overview';
