@@ -13,6 +13,8 @@ import { CompanyService } from 'src/app/services/company.service';
       CommonModule,
       ...MATERIAL_IMPORTS
     ],
+    styleUrls: ['./company-list.component.scss'],
+
 })
 export class CompanyListComponent implements OnInit {
   companies$!: Observable<Company[]>;
