@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { MatTableDataSource } from '@angular/material/table';
+import { Component, inject, OnInit } from '@angular/core';
 import { OrderService } from 'src/app/services/order.service';
 import { Order } from 'src/app/models/order';
 import { CommonModule } from '@angular/common';
 import { MATERIAL_IMPORTS } from 'material.import';
+import { Observable } from 'rxjs';
 
 @Component({
     selector: 'app-orders',
@@ -17,19 +17,16 @@ import { MATERIAL_IMPORTS } from 'material.import';
 })
 export class OrdersComponent implements OnInit {
   displayedColumns: string[] = ['id', 'description', 'quantity', 'status', 'projectId', 'providerId'];
-  dataSource = new MatTableDataSource<Order>();
-
-  constructor(private orderService: OrderService) {}
+  orderService: OrderService = inject(OrderService);
+  orders$!: Observable<Order[]>;
 
   ngOnInit(): void {
-    this.orderService.getOrders().subscribe((orders) => {
-      this.dataSource.data = orders;
-    });
+      this.orders$ = this.orderService.getOrders();
   }
 
-  deleteOrder(id: number): void {
-    this.orderService.deleteOrder(id).subscribe(() => {
-      this.dataSource.data = this.dataSource.data.filter(o => o.id !== id);
-    });
-  }
+  // deleteOrder(id: number): void {
+  //   this.orderService.deleteOrder(id).subscribe(() => {
+  //     this.orders$ = this.orders$.filter(o => o.id !== id);
+  //   });
+  // }
 }
