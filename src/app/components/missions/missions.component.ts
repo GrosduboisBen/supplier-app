@@ -1,39 +1,31 @@
-import { Component, OnInit } from '@angular/core';
-import { MissionService } from 'src/app/services/mission.service';
-import { MatTableDataSource } from '@angular/material/table';
-import { Mission } from 'src/app/models/mission';
 import { CommonModule } from '@angular/common';
+import { Component, inject, OnInit } from '@angular/core';
 import { MATERIAL_IMPORTS } from 'material.import';
+import { Observable } from 'rxjs';
+import { Mission } from 'src/app/models/mission';
+import { MissionService } from 'src/app/services/mission.service';
 
 @Component({
-    selector: 'app-missions',
-    templateUrl: './missions.component.html',
-    styleUrls: ['./missions.component.scss'],
-    standalone: true,
-    imports: [
-      CommonModule,
-      ...MATERIAL_IMPORTS
-    ],
+  selector: 'app-mission',
+  templateUrl: './missions.component.html',
+  styleUrls: ['./missions.component.scss'],
+  standalone: true,
+  imports: [
+    CommonModule,
+    ...MATERIAL_IMPORTS
+  ],
 })
 export class MissionsComponent implements OnInit {
-  displayedColumns: string[] = ['id', 'title', 'description', 'startDate', 'endDate', 'orderId', 'actions'];
-  dataSource = new MatTableDataSource<Mission>();
-
-  constructor(private missionService: MissionService) {}
+  missions$!: Observable<Mission[]>;
+  missionService: MissionService = inject(MissionService);
 
   ngOnInit(): void {
-    this.loadMissions();
-  }
-
-  loadMissions(): void {
-    this.missionService.getMissions().subscribe((missions) => {
-      this.dataSource.data = missions;
-    });
+    this.missions$ = this.missionService.getMissions();
   }
 
   deleteMission(id: number): void {
     this.missionService.deleteMission(id).subscribe(() => {
-      this.loadMissions();
+      this.missions$ = this.missionService.getMissions();
     });
   }
 }
