@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { MATERIAL_IMPORTS } from 'material.import';
 import { Observable } from 'rxjs';
 import { Company } from 'src/app/models/company';
@@ -17,10 +17,10 @@ import { CompanyService } from 'src/app/services/company.service';
 
 })
 export class CompanyListComponent implements OnInit {
+  companyService: CompanyService = inject(CompanyService);
   companies$!: Observable<Company[]>;
   displayedColumns = ['id', 'name', 'email', 'contact', 'industry'];
 
-  constructor(private companyService: CompanyService) {}
 
   ngOnInit(): void {
     this.companies$ = this.companyService.getAll();
