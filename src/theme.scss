@@ -1,0 +1,28 @@
+@use '@angular/material' as mat;
+@include mat.core();
+// ----------------------
+// 🎨 Palettes
+// ----------------------
+$primary-palette: mat.m2-define-palette(mat.$m2-blue-palette, 600);
+$accent-palette: mat.m2-define-palette(mat.$m2-light-blue-palette, 400);
+$warn-palette: mat.m2-define-palette(mat.$m2-orange-palette, 600);
+
+// Palettes additionnelles (hors thème Material)
+$info-palette: mat.m2-define-palette(mat.$m2-light-blue-palette, 300);
+$alert-palette: mat.m2-define-palette(mat.$m2-red-palette, 600);
+
+// ----------------------
+// 🌞 Thème principal
+// ----------------------
+$my-theme: mat.m2-define-light-theme((
+  color: (
+    primary: $primary-palette,
+    accent: $accent-palette,
+    warn: $warn-palette,
+  )
+));
+
+// ----------------------
+// ✅ Application
+// ----------------------
+@include mat.all-component-themes($my-theme);
