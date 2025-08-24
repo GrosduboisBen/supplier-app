@@ -1,0 +1,25 @@
+.app-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #394856;
+  padding: 0.5em 1em;
+}
+
+.header-nav {
+  display: flex;
+  flex-direction: row;
+  gap: 0.3em;
+}
+
+.header-left {
+  display: flex;
+  flex-direction: row;
+  gap: 0.3em;
+  align-items: baseline;
+  > .subtitle {
+    font-size: 1em;
+    color: #b67702;
+  }
+}
