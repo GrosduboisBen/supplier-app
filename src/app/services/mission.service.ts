@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Mission } from '../models/mission';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MissionService {
-  private apiUrl = 'http://localhost:8080/api/missions'; // adapte selon ton API
+  private apiUrl = `${environment.apiURL}/missions`; // adapte selon ton API
 
   constructor(private http: HttpClient) {}
 

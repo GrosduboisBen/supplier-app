@@ -4,19 +4,17 @@ import { MATERIAL_IMPORTS } from 'material.import';
 import { Observable } from 'rxjs';
 import { Company } from 'src/app/models/company';
 import { CompanyService } from 'src/app/services/company.service';
-
 @Component({
-    selector: 'app-company-list',
-    templateUrl: './company-list.component.html',
+    selector: 'app-company',
+    templateUrl: './company.component.html',
     standalone: true,
     imports: [
       CommonModule,
       ...MATERIAL_IMPORTS
     ],
-    styleUrls: ['./company-list.component.scss'],
-
+    styleUrls: ['./company.component.scss'],
 })
-export class CompanyListComponent implements OnInit {
+export class CompanyComponent implements OnInit {
   companyService: CompanyService = inject(CompanyService);
   companies$!: Observable<Company[]>;
   displayedColumns = ['id', 'name', 'email', 'contact', 'industry'];

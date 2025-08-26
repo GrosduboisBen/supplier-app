@@ -1,12 +1,12 @@
-<mat-card class="order-card">
-  <mat-card-title class="order-card-title">Orders</mat-card-title>
+<mat-card class="entity-main-card">
+  <mat-card-title class="entity-card-title">Orders</mat-card-title>
 
-  <div class="orders-container" *ngIf="orders$ | async as orders">
+  <div class="entities-container" *ngIf="orders$ | async as orders">
     <div *ngIf="orders.length === 0" class="empty-state">
       No data
     </div>
 
-    <mat-card class="order-subcard mat-elevation-z4"
+    <mat-card class="entity-subcard mat-elevation-z4"
               *ngFor="let o of orders">
       <mat-card-header>
         <mat-card-title class="subcard-subtitle">Order #{{ o.id }}</mat-card-title>

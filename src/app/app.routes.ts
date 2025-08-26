@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { CompanyListComponent } from './components/companies/company-list/company-list.component';
+import { CompanyComponent } from './components/companies/company.component';
 import { ProjectsComponent } from './components/projects/projects.component';
 import { MissionsComponent } from './components/missions/missions.component';
 import { ProviderComponent } from './components/provider/provider.component';
@@ -8,13 +8,11 @@ import { EvaluationsComponent } from './components/evaluations/evaluations.compo
 // ajoute les autres composants
 
 export const appRoutes: Routes = [
-  { path: 'companies', component: CompanyListComponent },
+  { path: 'companies', component: CompanyComponent },
   { path: 'projects', component: ProjectsComponent },
   { path: 'missions', component: MissionsComponent },
   { path: 'providers', component: ProviderComponent },
   { path: 'orders', component: OrdersComponent },
   { path: 'evaluations', component: EvaluationsComponent },
-
-  // ajoute les autres routes ici
   { path: '', redirectTo: 'companies', pathMatch: 'full' }
 ];
