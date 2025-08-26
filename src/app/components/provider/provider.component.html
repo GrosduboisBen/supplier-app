@@ -1,12 +1,12 @@
-<mat-card class="provider-card">
-  <mat-card-title class="provider-card-title">Providers</mat-card-title>
+<mat-card class="entity-main-card">
+  <mat-card-title class="entity-card-title">Providers</mat-card-title>
 
-  <div class="providers-container" *ngIf="providers$ | async as providers">
+  <div class="entities-container" *ngIf="providers$ | async as providers">
     <div *ngIf="providers.length === 0" class="empty-state">
       No data
     </div>
 
-    <mat-card class="provider-subcard mat-elevation-z4"
+    <mat-card class="entity-subcard mat-elevation-z4"
               *ngFor="let p of providers">
       <mat-card-header>
         <mat-card-title class="subcard-subtitle">{{ p.name }}</mat-card-title>

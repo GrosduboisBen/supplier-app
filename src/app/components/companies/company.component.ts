@@ -4,7 +4,6 @@ import { MATERIAL_IMPORTS } from 'material.import';
 import { Observable } from 'rxjs';
 import { Company } from 'src/app/models/company';
 import { CompanyService } from 'src/app/services/company.service';
-
 @Component({
     selector: 'app-company',
     templateUrl: './company.component.html',
@@ -14,7 +13,6 @@ import { CompanyService } from 'src/app/services/company.service';
       ...MATERIAL_IMPORTS
     ],
     styleUrls: ['./company.component.scss'],
-
 })
 export class CompanyComponent implements OnInit {
   companyService: CompanyService = inject(CompanyService);

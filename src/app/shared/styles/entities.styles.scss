@@ -1,0 +1,45 @@
+.entity-main-card {
+  background-color: #52616d;
+  border-radius: 0.5em;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  width: fit-content;
+}
+
+.entity-card-title{
+  font-weight: bold;
+  font-size: large;
+  padding: 0.3em;
+  color: #b67702;
+}
+
+.entities-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(15em, 1fr));
+  gap: 1em;
+  margin-top: 1em;
+  background-color: #4a5864;
+  max-width: 60em;
+  padding: 1em;
+
+}
+
+.action-container{
+  display: flex;
+  gap: 0.5em;
+  justify-content: flex-end;
+  margin-bottom: 1em;
+}
+
+.entity-subcard {
+  margin-top: 1em;
+  margin-bottom: 1em;
+  background-color: #7e95a8;
+  border-radius: 0.5em;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 1em 1em rgba(0, 0, 0, 0.15);
+  }
+}
+.subcard-subtitle { font-weight: bold;}
