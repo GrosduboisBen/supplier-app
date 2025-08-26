@@ -14,7 +14,5 @@ export const appRoutes: Routes = [
   { path: 'providers', component: ProviderComponent },
   { path: 'orders', component: OrdersComponent },
   { path: 'evaluations', component: EvaluationsComponent },
-
-  // ajoute les autres routes ici
   { path: '', redirectTo: 'companies', pathMatch: 'full' }
 ];
