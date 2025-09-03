@@ -1,5 +1,8 @@
 <mat-card class="entity-main-card ">
-  <mat-card-title class="entity-card-title">Companies</mat-card-title>
+  <mat-card-title class="entity-card-title">
+    Companies
+   <button matButton="elevated" color="accent" (click)="openDialog()">Add</button>
+  </mat-card-title>
 
   <div class="entities-container" *ngIf="companies$ | async as companies">
     <div *ngIf="companies.length === 0" class="empty-state">
@@ -20,7 +23,7 @@
       </mat-card-content>
 
       <mat-card-actions class="action-container">
-        <button matButton="elevated" color="primary">Edit</button>
+        <button matButton="elevated">Edit</button>
         <button matButton="elevated" color="warn">Delete</button>
       </mat-card-actions>
     </mat-card>
