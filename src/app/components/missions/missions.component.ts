@@ -1,9 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MATERIAL_IMPORTS } from 'material.import';
-import { Observable } from 'rxjs';
+import { MissionCreateComponent } from 'src/app/dialogs/mission-create/mission-create.component';
 import { Mission } from 'src/app/models/mission';
-import { MissionService } from 'src/app/services/mission.service';
+import { MissionStore } from 'src/app/stores/entities-stores/mission-store';
 
 @Component({
   selector: 'app-mission',
@@ -16,16 +17,40 @@ import { MissionService } from 'src/app/services/mission.service';
   ],
 })
 export class MissionsComponent implements OnInit {
-  missions$!: Observable<Mission[]>;
-  missionService: MissionService = inject(MissionService);
+  constructor(private store: MissionStore) {}
+  dialog = inject(MatDialog);
+
+  missions = this.store.all;
 
   ngOnInit(): void {
-    this.missions$ = this.missionService.getMissions();
+    this.store.refresh().subscribe();
   }
 
-  deleteMission(id: number): void {
-    this.missionService.deleteMission(id).subscribe(() => {
-      this.missions$ = this.missionService.getMissions();
-    });
-  }
+  updateMission(id: number, changes: Partial<Mission>) {
+     this.store.update(id, changes).subscribe(() => {
+       this.store.refreshOne(id).subscribe();
+     });
+   }
+
+   forceReloadAll() {
+     this.store.refresh().subscribe();
+   }
+
+   openDialog(): void {
+     const dialogRef = this.dialog.open(MissionCreateComponent);
+
+     dialogRef.afterClosed().subscribe((result: Mission | null) => {
+       if (result) {
+         this.addMission(result);
+       }
+     });
+   }
+
+   addMission(payload: Mission) {
+     this.store.add(payload as Omit<Mission, 'id'>).subscribe();
+   }
+
+   deleteMission(id: number) {
+     this.store.remove(id).subscribe();
+   }
 }

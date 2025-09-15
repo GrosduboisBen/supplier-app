@@ -1,29 +1,40 @@
 <mat-card class="entity-main-card">
-  <mat-card-title class="entity-card-title">Missions</mat-card-title>
+  <mat-card-title class="entity-card-title">
+    Missions
+    <button mat-flat-button color="accent" (click)="openDialog()">Add</button>
+  </mat-card-title>
 
-  <div class="entities-container" *ngIf="missions$ | async as missions">
-    <div *ngIf="missions.length === 0" class="empty-state">
-      No data
-    </div>
+  <div class="entities-container">
+    @if (missions().length === 0) {
+      <div class="empty-state">
+        No data
+      </div>
+    } @else {
+      @for (m of missions(); track m.id) {
+        <mat-card class="entity-subcard mat-elevation-z4">
+          <mat-card-header>
+            <mat-card-title class="subcard-subtitle">Mission #{{ m.id }}</mat-card-title>
+            <mat-card-subtitle>{{ m.title }}</mat-card-subtitle>
+          </mat-card-header>
 
-    <mat-card class="entity-subcard mat-elevation-z4"
-              *ngFor="let m of missions">
-      <mat-card-header>
-        <mat-card-title class="subcard-subtitle">Mission #{{ m.id }}</mat-card-title>
-        <mat-card-subtitle>{{ m.title }}</mat-card-subtitle>
-      </mat-card-header>
+          <mat-card-content>
+            <p><strong>Description:</strong> {{ m.description }}</p>
+            <p><strong>Start Date:</strong> {{ m.startDate | date }}</p>
+            <p><strong>End Date:</strong> {{ m.endDate | date }}</p>
+            <p><strong>Order:</strong> {{ m.orderId }}</p>
+          </mat-card-content>
 
-      <mat-card-content>
-        <p><strong>Description:</strong> {{ m.description }}</p>
-        <p><strong>Start Date:</strong> {{ m.startDate | date }}</p>
-        <p><strong>End Date:</strong> {{ m.endDate | date }}</p>
-        <p><strong>Order:</strong> {{ m.orderId }}</p>
-      </mat-card-content>
-
-      <mat-card-actions class="action-container">
-        <button matButton="elevated" color="primary">Edit</button>
-        <button matButton="elevated" color="warn" (click)="deleteMission(m.id)">Delete</button>
-      </mat-card-actions>
-    </mat-card>
+          <mat-card-actions class="action-container">
+            <button mat-flat-button color="primary"
+                    (click)="updateMission(m.id, { title: m.title + ' (edited)' })">
+              Edit
+            </button>
+            <button mat-flat-button color="warn" (click)="deleteMission(m.id)">
+              Delete
+            </button>
+          </mat-card-actions>
+        </mat-card>
+      }
+    }
   </div>
 </mat-card>
