@@ -1,11 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { MATERIAL_DIALOGS_IMPORTS, MATERIAL_IMPORTS } from 'material.import';
 import { MatDialogRef } from '@angular/material/dialog';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Project } from 'src/app/models/project';
 import { Company } from 'src/app/models/company';
-import { CompanyService } from 'src/app/services/company.service';
+import { CompanyStore } from 'src/app/stores/entities-stores/company-store';
 
 @Component({
   selector: 'app-project-create',
@@ -22,7 +22,7 @@ import { CompanyService } from 'src/app/services/company.service';
 export class ProjectCreateComponent implements OnInit {
   fb = inject(FormBuilder);
   dialogRef = inject(MatDialogRef<ProjectCreateComponent>);
-  companyService = inject(CompanyService);
+  companyStore = inject(CompanyStore);
 
   form: FormGroup = this.fb.group({
     title: ['', Validators.required],
@@ -31,18 +31,17 @@ export class ProjectCreateComponent implements OnInit {
     companyId: [null, Validators.required],
   });
 
-  companies: Company[] = [];
+  companies = signal<Company[]>([]);
 
   ngOnInit(): void {
-    this.companyService.getAll().subscribe({
-      next: (companies) => (this.companies = companies),
-      error: (err) => console.error('Failed to load companies', err),
+    // 🔄 Refresh pour récupérer toutes les companies depuis le store
+    this.companyStore.refresh().subscribe({
+      next: () => this.companies.set(this.companyStore.all())
     });
   }
 
   submit(): void {
     if (this.form.valid) {
-      // `id` and `companyName` will be filled server-side
       const project: Omit<Project, 'id' | 'companyName'> = this.form.value;
       this.dialogRef.close(project);
     }
