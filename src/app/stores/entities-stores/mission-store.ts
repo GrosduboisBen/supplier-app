@@ -7,7 +7,7 @@ import { EntityStore } from './global';
 import { Mission } from 'src/app/models/mission';
 
 @Injectable({ providedIn: 'root' })
-export class CompanyStore extends EntityStore<Mission> {
+export class MissionStore extends EntityStore<Mission> {
   constructor(http: HttpClient) {
     super(http, `${environment.apiURL}/missions`);
   }
