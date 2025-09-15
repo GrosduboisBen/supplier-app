@@ -1,10 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { MATERIAL_IMPORTS } from 'material.import';
 import { Company } from 'src/app/models/company';
 import { CompanyService } from 'src/app/services/company.service';
 import {  MatDialog} from '@angular/material/dialog';
 import { CompanyCreateComponent } from 'src/app/dialogs/company-create/company-create.component';
+import { CompanyStore } from 'src/app/stores/entities-stores/company-store';
 @Component({
     selector: 'app-company',
     templateUrl: './company.component.html',
@@ -16,18 +17,26 @@ import { CompanyCreateComponent } from 'src/app/dialogs/company-create/company-c
     styleUrls: ['./company.component.scss'],
 })
 export class CompanyComponent implements OnInit {
+    constructor(private store: CompanyStore) {}
+
   displayedColumns = ['id', 'name', 'email', 'contact', 'industry'];
   companyService = inject(CompanyService);
   dialog = inject(MatDialog);
 
-  companies = signal<Company[]>([]);
+  companies = this.store.all;
 
   ngOnInit(): void {
-    this.refreshCompanies();
+    this.store.refresh().subscribe();
   }
 
-  refreshCompanies(): void {
-    this.companyService.getAll().subscribe(data => this.companies.set(data));
+  updateCompany(id: number, changes: Partial<Company>) {
+    this.store.update(id, changes).subscribe(() => {
+      this.store.refreshOne(id).subscribe();
+    });
+  }
+
+  forceReloadAll() {
+    this.store.refresh().subscribe();
   }
 
   openDialog(): void {
@@ -41,8 +50,6 @@ export class CompanyComponent implements OnInit {
   }
 
   addCompany(payload: Company): void {
-    this.companyService.create(payload).subscribe(() => {
-      this.refreshCompanies(); // ✅ on recharge la liste
-    });
+    this.store.add(payload).subscribe();
   }
 }
