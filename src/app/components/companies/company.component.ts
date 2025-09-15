@@ -17,7 +17,7 @@ import { CompanyStore } from 'src/app/stores/entities-stores/company-store';
     styleUrls: ['./company.component.scss'],
 })
 export class CompanyComponent implements OnInit {
-    constructor(private store: CompanyStore) {}
+  constructor(private store: CompanyStore) {}
 
   displayedColumns = ['id', 'name', 'email', 'contact', 'industry'];
   companyService = inject(CompanyService);
