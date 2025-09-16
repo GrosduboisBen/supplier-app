@@ -1,0 +1,52 @@
+<mat-card class="form-main-card">
+  <mat-card-title class="form-card-title">Create Order</mat-card-title>
+
+  <form class="entity-form" [formGroup]="form" (ngSubmit)="submit()">
+    <div class="form-container">
+      <!-- Description -->
+      <mat-form-field class="form-field">
+        <mat-label>Description</mat-label>
+        <textarea matInput formControlName="description" placeholder="Order description"></textarea>
+      </mat-form-field>
+
+      <!-- Quantity -->
+      <mat-form-field class="form-field">
+        <mat-label>Quantity</mat-label>
+        <input matInput type="number" formControlName="quantity" placeholder="Quantity" />
+      </mat-form-field>
+
+      <!-- Status -->
+      <mat-form-field class="form-field">
+        <mat-label>Status</mat-label>
+        <mat-select formControlName="status">
+          @for(status of orderStatuses; track status) {
+            <mat-option [value]="status">{{ status }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+
+      <!-- Project -->
+      <mat-form-field class="form-field">
+        <mat-label>Project</mat-label>
+        <mat-select formControlName="projectId">
+          @for(p of projects; track p.id) {
+            <mat-option [value]="p.id">{{ p.title }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+
+      <!-- Provider -->
+      <mat-form-field class="form-field">
+        <mat-label>Provider</mat-label>
+        <mat-select formControlName="providerId">
+          @for(pr of providers; track pr.id) {
+            <mat-option [value]="pr.id">{{ pr.name }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <button mat-flat-button color="primary" type="submit">Save</button>
+    <button mat-button type="button" (click)="cancel()">Cancel</button>
+  </form>
+</mat-card>
