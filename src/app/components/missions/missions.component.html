@@ -25,8 +25,9 @@
           </mat-card-content>
 
           <mat-card-actions class="action-container">
-            <button mat-flat-button color="primary"
-                    (click)="updateMission(m.id, { title: m.title + ' (edited)' })">
+            <button
+              mat-flat-button color="primary"
+              (click)="updateMission(m.id, { title: m.title + ' (edited)' })">
               Edit
             </button>
             <button mat-flat-button color="warn" (click)="deleteMission(m.id)">
