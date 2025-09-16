@@ -1,25 +1,53 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MATERIAL_IMPORTS } from 'material.import';
-import { Observable } from 'rxjs';
+
 import { Evaluation } from 'src/app/models/evaluation';
-import { EvaluationService } from 'src/app/services/evaluation.service';
+import { EvaluationStore } from 'src/app/stores/entities-stores/evaluation-store';
+import { EvaluationCreateComponent } from 'src/app/dialogs/evaluation-create/evaluation-create.component';
 
 @Component({
-  selector: 'app-evaluation',
+  selector: 'app-evaluations',
   templateUrl: './evaluations.component.html',
   styleUrls: ['./evaluations.component.scss'],
   standalone: true,
   imports: [
     CommonModule,
-    ...MATERIAL_IMPORTS
+    ...MATERIAL_IMPORTS,
   ],
 })
 export class EvaluationsComponent implements OnInit {
-  evaluations$!: Observable<Evaluation[]>;
-  evaluationService: EvaluationService = inject(EvaluationService);
+  constructor(private store: EvaluationStore) {}
+  dialog = inject(MatDialog);
+
+  evaluations = this.store.all;
 
   ngOnInit(): void {
-    this.evaluations$ = this.evaluationService.getEvaluations();
+    this.store.refresh().subscribe();
+  }
+
+  updateEvaluation(id: number, changes: Partial<Evaluation>) {
+    this.store.update(id, changes).subscribe(() => {
+      this.store.refreshOne(id).subscribe();
+    });
+  }
+
+  deleteEvaluation(id: number) {
+    this.store.remove(id).subscribe();
+  }
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(EvaluationCreateComponent);
+
+    dialogRef.afterClosed().subscribe((result: Evaluation | null) => {
+      if (result) {
+        this.addEvaluation(result);
+      }
+    });
+  }
+
+  addEvaluation(payload: Omit<Evaluation, 'id'>) {
+    this.store.add(payload).subscribe();
   }
 }
