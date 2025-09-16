@@ -51,7 +51,7 @@ export abstract class EntityStore<T extends { id: number | string }> {
   }
 
   update(id: number | string, changes: Partial<T>): Observable<T> {
-    return this.http.put<T>(`${this.endpoint}/${id}`, changes).pipe(
+    return this.http.patch<T>(`${this.endpoint}/${id}`, changes).pipe(
       tap((updated) =>
         this.items.update((list) =>
           list.map((e) => (e.id === updated.id ? updated : e))
