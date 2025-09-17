@@ -5,6 +5,7 @@ import { MATERIAL_IMPORTS } from 'material.import';
 import { Order } from 'src/app/models/order';
 import { OrderStore } from 'src/app/stores/entities-stores/order-store';
 import { OrderFormComponent } from 'src/app/dialogs/order-form/order-form.component';
+import { DialogEmitType } from 'src/app/dialogs/enum';
 
 @Component({
   selector: 'app-orders',
@@ -26,28 +27,33 @@ export class OrdersComponent implements OnInit {
     this.store.refresh().subscribe();
   }
 
-  updateOrder(id: number, changes: Partial<Order>) {
-    this.store.update(id, changes).subscribe(() => {
-      this.store.refreshOne(id).subscribe();
-    });
-  }
 
   forceReloadAll() {
     this.store.refresh().subscribe();
   }
 
-  openDialog(): void {
-    const dialogRef = this.dialog.open(OrderFormComponent);
+  openDialog(order?: Order): void {
+    const dialogRef = this.dialog.open(OrderFormComponent, {
+      data: order ?? null
+    });
 
-    dialogRef.afterClosed().subscribe((result: Order | null) => {
-      if (result) {
-        this.addOrder(result);
+    dialogRef.afterClosed().subscribe((result) => {
+      if (!result) return;
+
+      switch (result.type) {
+        case DialogEmitType.CREATE:
+          this.store.add(result.data).subscribe();
+          break;
+        case DialogEmitType.UPDATE:
+          this.store.update(result.data.id, result.data).subscribe();
+          break;
+        case DialogEmitType.DELETE:
+          this.store.remove(result.data.id).subscribe();
+          break;
+        case DialogEmitType.CANCEL:
+          break;
       }
     });
-  }
-
-  addOrder(payload: Order) {
-    this.store.add(payload as Omit<Order, 'id'>).subscribe();
   }
 
   deleteOrder(id: number) {
