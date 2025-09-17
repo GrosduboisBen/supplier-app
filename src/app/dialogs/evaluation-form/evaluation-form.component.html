@@ -1,8 +1,11 @@
 <mat-card class="form-main-card">
-  <mat-card-title class="form-card-title">Create Evaluation</mat-card-title>
+  <mat-card-title class="form-card-title">
+    {{ evaluation ? 'Edit Evaluation' : 'Create Evaluation' }}
+  </mat-card-title>
 
   <form class="entity-form" [formGroup]="form" (ngSubmit)="submit()">
     <div class="form-container">
+
       <!-- Rating -->
       <mat-form-field class="form-field">
         <mat-label>Rating</mat-label>
@@ -23,14 +26,19 @@
       <mat-form-field class="form-field">
         <mat-label>Mission</mat-label>
         <mat-select formControlName="missionId">
-          @for(m of missions; track m.id) {
+          @for(m of missions(); track m.id) {
             <mat-option [value]="m.id">{{ m.title }}</mat-option>
           }
         </mat-select>
       </mat-form-field>
     </div>
 
-    <button mat-flat-button color="primary" type="submit">Save</button>
-    <button mat-button type="button" (click)="cancel()">Cancel</button>
+    <div class="actions">
+      <button mat-flat-button color="primary" type="submit">
+        {{ evaluation ? 'Update' : 'Create' }}
+      </button>
+      <button mat-button type="button" (click)="cancel()">Cancel</button>
+      <button mat-button color="warn" type="button" *ngIf="evaluation" (click)="delete()">Delete</button>
+    </div>
   </form>
 </mat-card>
