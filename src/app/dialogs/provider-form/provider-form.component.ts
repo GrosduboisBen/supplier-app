@@ -7,9 +7,9 @@ import { Provider } from 'src/app/models/provider';
 import { ProviderCategories } from 'src/app/enum/provider-categories';
 
 @Component({
-  selector: 'app-provider-create',
-  templateUrl: './provider-create.component.html',
-  styleUrls: ['./provider-create.component.scss'],
+  selector: 'app-provider-form',
+  templateUrl: './provider-form.component.html',
+  styleUrls: ['./provider-form.component.scss'],
   standalone: true,
   imports: [
     CommonModule,
@@ -18,9 +18,9 @@ import { ProviderCategories } from 'src/app/enum/provider-categories';
     ...MATERIAL_DIALOGS_IMPORTS
   ],
 })
-export class ProviderCreateComponent{
+export class ProviderFormComponent{
   fb = inject(FormBuilder);
-  dialogRef = inject(MatDialogRef<ProviderCreateComponent>);
+  dialogRef = inject(MatDialogRef<ProviderFormComponent>);
 
   categories = ProviderCategories;
   categoryKeys = Object.keys(this.categories).filter(k => isNaN(Number(k))); // ['DEVELOPMENT','DESIGN',...]

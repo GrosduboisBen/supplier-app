@@ -10,9 +10,9 @@ import { OrderStore } from 'src/app/stores/entities-stores/order-store';
 import {provideNativeDateAdapter} from '@angular/material/core';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 @Component({
-  selector: 'app-mission-create',
-  templateUrl: './mission-create.component.html',
-  styleUrls: ['./mission-create.component.scss'],
+  selector: 'app-mission-form',
+  templateUrl: './mission-form.component.html',
+  styleUrls: ['./mission-form.component.scss'],
   standalone: true,
   imports: [
     CommonModule,
@@ -25,9 +25,9 @@ import { MAT_DATE_LOCALE } from '@angular/material/core';
   { provide: MAT_DATE_LOCALE, useValue: 'fr-FR' } // ou 'fr-FR'
 ]
 })
-export class MissionCreateComponent implements OnInit {
+export class MissionFormComponent implements OnInit {
   fb = inject(FormBuilder);
-  dialogRef = inject(MatDialogRef<MissionCreateComponent>);
+  dialogRef = inject(MatDialogRef<MissionFormComponent>);
   missionStore = inject(MissionStore);
   orderStore = inject(OrderStore);
 

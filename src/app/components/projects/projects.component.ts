@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MATERIAL_IMPORTS } from 'material.import';
-import { ProjectCreateComponent } from 'src/app/dialogs/project-create/project-create.component';
+import { ProjectFormComponent } from 'src/app/dialogs/project-form/project-form.component';
 import { Project } from 'src/app/models/project';
 import { ProjectService } from 'src/app/services/project.service';
 import { ProjectStore } from 'src/app/stores/entities-stores/project-store';
@@ -52,7 +52,7 @@ export class ProjectsComponent implements OnInit {
 
   // open create dialog; dialog should return the created payload (without id)
   openDialog(): void {
-    const dialogRef = this.dialog.open(ProjectCreateComponent);
+    const dialogRef = this.dialog.open(ProjectFormComponent);
 
     dialogRef.afterClosed().subscribe((result: Project | null) => {
       if (result) {

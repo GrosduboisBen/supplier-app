@@ -9,9 +9,9 @@ import { Mission } from 'src/app/models/mission';
 import { MissionStore } from 'src/app/stores/entities-stores/mission-store';
 
 @Component({
-  selector: 'app-evaluation-create',
-  templateUrl: './evaluation-create.component.html',
-  styleUrls: ['./evaluation-create.component.scss'],
+  selector: 'app-evaluation-form',
+  templateUrl: './evaluation-form.component.html',
+  styleUrls: ['./evaluation-form.component.scss'],
   standalone: true,
   imports: [
     CommonModule,
@@ -20,9 +20,9 @@ import { MissionStore } from 'src/app/stores/entities-stores/mission-store';
     ...MATERIAL_DIALOGS_IMPORTS,
   ],
 })
-export class EvaluationCreateComponent implements OnInit {
+export class EvaluationFormComponent implements OnInit {
   fb = inject(FormBuilder);
-  dialogRef = inject(MatDialogRef<EvaluationCreateComponent>);
+  dialogRef = inject(MatDialogRef<EvaluationFormComponent>);
   missionStore = inject(MissionStore);
 
   form: FormGroup = this.fb.group({

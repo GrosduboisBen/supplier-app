@@ -8,9 +8,9 @@ import { Company } from 'src/app/models/company';
 import { CompanyStore } from 'src/app/stores/entities-stores/company-store';
 
 @Component({
-  selector: 'app-project-create',
-  templateUrl: './project-create.component.html',
-  styleUrls: ['./project-create.component.scss'],
+  selector: 'app-project-form',
+  templateUrl: './project-form.component.html',
+  styleUrls: ['./project-form.component.scss'],
   standalone: true,
   imports: [
     CommonModule,
@@ -19,9 +19,9 @@ import { CompanyStore } from 'src/app/stores/entities-stores/company-store';
     ...MATERIAL_DIALOGS_IMPORTS
   ],
 })
-export class ProjectCreateComponent implements OnInit {
+export class ProjectFormComponent implements OnInit {
   fb = inject(FormBuilder);
-  dialogRef = inject(MatDialogRef<ProjectCreateComponent>);
+  dialogRef = inject(MatDialogRef<ProjectFormComponent>);
   companyStore = inject(CompanyStore);
 
   form: FormGroup = this.fb.group({

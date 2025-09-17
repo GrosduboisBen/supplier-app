@@ -4,7 +4,7 @@ import { MATERIAL_IMPORTS } from 'material.import';
 import { Company } from 'src/app/models/company';
 import { CompanyService } from 'src/app/services/company.service';
 import {  MatDialog} from '@angular/material/dialog';
-import { CompanyCreateComponent } from 'src/app/dialogs/company-create/company-create.component';
+import { CompanyFormComponent } from 'src/app/dialogs/company-form/company-form.component';
 import { CompanyStore } from 'src/app/stores/entities-stores/company-store';
 @Component({
     selector: 'app-company',
@@ -40,7 +40,7 @@ export class CompanyComponent implements OnInit {
   }
 
   openDialog(): void {
-    const dialogRef = this.dialog.open(CompanyCreateComponent);
+    const dialogRef = this.dialog.open(CompanyFormComponent);
 
     dialogRef.afterClosed().subscribe((result: Company | null) => {
       if (result) {

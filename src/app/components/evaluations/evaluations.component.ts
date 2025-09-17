@@ -5,7 +5,7 @@ import { MATERIAL_IMPORTS } from 'material.import';
 
 import { Evaluation } from 'src/app/models/evaluation';
 import { EvaluationStore } from 'src/app/stores/entities-stores/evaluation-store';
-import { EvaluationCreateComponent } from 'src/app/dialogs/evaluation-create/evaluation-create.component';
+import { EvaluationFormComponent } from 'src/app/dialogs/evaluation-form/evaluation-form.component';
 
 @Component({
   selector: 'app-evaluations',
@@ -38,7 +38,7 @@ export class EvaluationsComponent implements OnInit {
   }
 
   openDialog(): void {
-    const dialogRef = this.dialog.open(EvaluationCreateComponent);
+    const dialogRef = this.dialog.open(EvaluationFormComponent);
 
     dialogRef.afterClosed().subscribe((result: Evaluation | null) => {
       if (result) {

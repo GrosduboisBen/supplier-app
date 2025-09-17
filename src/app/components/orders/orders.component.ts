@@ -4,7 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MATERIAL_IMPORTS } from 'material.import';
 import { Order } from 'src/app/models/order';
 import { OrderStore } from 'src/app/stores/entities-stores/order-store';
-import { OrderCreateComponent } from 'src/app/dialogs/order-create/order-create.component';
+import { OrderFormComponent } from 'src/app/dialogs/order-form/order-form.component';
 
 @Component({
   selector: 'app-orders',
@@ -37,7 +37,7 @@ export class OrdersComponent implements OnInit {
   }
 
   openDialog(): void {
-    const dialogRef = this.dialog.open(OrderCreateComponent);
+    const dialogRef = this.dialog.open(OrderFormComponent);
 
     dialogRef.afterClosed().subscribe((result: Order | null) => {
       if (result) {

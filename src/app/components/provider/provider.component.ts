@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MATERIAL_IMPORTS } from 'material.import';
-import { ProviderCreateComponent } from 'src/app/dialogs/provider-create/provider-create.component';
+import { ProviderFormComponent } from 'src/app/dialogs/provider-form/provider-form.component';
 import { Provider } from 'src/app/models/provider';
 import { ProviderService } from 'src/app/services/provider.service';
 import { ProviderStore } from 'src/app/stores/entities-stores/provider-store';
@@ -41,7 +41,7 @@ export class ProviderComponent implements OnInit {
   }
 
   openDialog(): void {
-    const dialogRef = this.dialog.open(ProviderCreateComponent);
+    const dialogRef = this.dialog.open(ProviderFormComponent);
 
     dialogRef.afterClosed().subscribe((result: Provider | null) => {
       if (result) {

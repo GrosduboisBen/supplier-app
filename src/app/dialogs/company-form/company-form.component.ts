@@ -6,9 +6,9 @@ import { Company } from 'src/app/models/company';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
-  selector: 'app-company-create',
-  templateUrl: './company-create.component.html',
-  styleUrl: './company-create.component.scss',
+  selector: 'app-company-form',
+  templateUrl: './company-form.component.html',
+  styleUrl: './company-form.component.scss',
   standalone: true,
   imports: [
       CommonModule,
@@ -19,9 +19,9 @@ import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angula
     ],
 
 })
-export class CompanyCreateComponent {
+export class CompanyFormComponent {
   fb = inject(FormBuilder);
-  dialogRef = inject(MatDialogRef<CompanyCreateComponent>);
+  dialogRef = inject(MatDialogRef<CompanyFormComponent>);
 
   form: FormGroup = this.fb.group({
     name: ['', Validators.required],

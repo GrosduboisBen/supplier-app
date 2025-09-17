@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MATERIAL_IMPORTS } from 'material.import';
-import { MissionCreateComponent } from 'src/app/dialogs/mission-create/mission-create.component';
+import { MissionFormComponent } from 'src/app/dialogs/mission-form/mission-form.component';
 import { Mission } from 'src/app/models/mission';
 import { MissionStore } from 'src/app/stores/entities-stores/mission-store';
 
@@ -37,7 +37,7 @@ export class MissionsComponent implements OnInit {
    }
 
    openDialog(): void {
-     const dialogRef = this.dialog.open(MissionCreateComponent);
+     const dialogRef = this.dialog.open(MissionFormComponent);
 
      dialogRef.afterClosed().subscribe((result: Mission | null) => {
        if (result) {

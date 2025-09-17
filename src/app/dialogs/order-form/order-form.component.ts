@@ -11,9 +11,9 @@ import { CompanyService } from 'src/app/services/company.service';
 import { OrderStatus } from 'src/app/enum/order-status';
 
 @Component({
-  selector: 'app-order-create',
-  templateUrl: './order-create.component.html',
-  styleUrls: ['./order-create.component.scss'],
+  selector: 'app-order-form',
+  templateUrl: './order-form.component.html',
+  styleUrls: ['./order-form.component.scss'],
   standalone: true,
   imports: [
     CommonModule,
@@ -22,9 +22,9 @@ import { OrderStatus } from 'src/app/enum/order-status';
     ...MATERIAL_DIALOGS_IMPORTS,
   ],
 })
-export class OrderCreateComponent implements OnInit {
+export class OrderFormComponent implements OnInit {
   fb = inject(FormBuilder);
-  dialogRef = inject(MatDialogRef<OrderCreateComponent>);
+  dialogRef = inject(MatDialogRef<OrderFormComponent>);
   projectService = inject(ProjectService);
   companyService = inject(CompanyService);
 
