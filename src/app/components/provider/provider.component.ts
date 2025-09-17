@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MATERIAL_IMPORTS } from 'material.import';
+import { DialogEmitType } from 'src/app/dialogs/enum';
 import { ProviderFormComponent } from 'src/app/dialogs/provider-form/provider-form.component';
 import { Provider } from 'src/app/models/provider';
 import { ProviderService } from 'src/app/services/provider.service';
@@ -40,21 +41,30 @@ export class ProviderComponent implements OnInit {
     this.store.refresh().subscribe();
   }
 
-  openDialog(): void {
-    const dialogRef = this.dialog.open(ProviderFormComponent);
+ openDialog(provider?: Provider): void {
+    const dialogRef = this.dialog.open(ProviderFormComponent, {
+      data: provider
+    });
 
-    dialogRef.afterClosed().subscribe((result: Provider | null) => {
-      if (result) {
-        this.addProvider(result);
+    dialogRef.afterClosed().subscribe((result) => {
+      if (!result) return;
+
+      switch (result.type) {
+        case DialogEmitType.CREATE:
+          this.store.add(result.data).subscribe();
+          break;
+        case DialogEmitType.UPDATE:
+          this.store.update(result.data.id, result.data).subscribe();
+          break;
+        case DialogEmitType.DELETE:
+          this.store.remove(result.data.id).subscribe();
+          break;
+        case DialogEmitType.CANCEL:
+          break;
       }
     });
   }
-
-  addProvider(payload: Provider) {
-    this.store.add(payload as Omit<Provider, 'id'>).subscribe();
-  }
-
-  deleteProvider(id: number) {
+   deleteProvider(id: number): void {
     this.store.remove(id).subscribe();
   }
 }
