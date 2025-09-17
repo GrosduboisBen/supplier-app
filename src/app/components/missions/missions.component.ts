@@ -2,7 +2,8 @@ import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MATERIAL_IMPORTS } from 'material.import';
-import { MissionCreateComponent } from 'src/app/dialogs/mission-create/mission-create.component';
+import { DialogEmitType } from 'src/app/dialogs/enum';
+import { MissionFormComponent } from 'src/app/dialogs/mission-form/mission-form.component';
 import { Mission } from 'src/app/models/mission';
 import { MissionStore } from 'src/app/stores/entities-stores/mission-store';
 
@@ -26,29 +27,33 @@ export class MissionsComponent implements OnInit {
     this.store.refresh().subscribe();
   }
 
-  updateMission(id: number, changes: Partial<Mission>) {
-     this.store.update(id, changes).subscribe(() => {
-       this.store.refreshOne(id).subscribe();
-     });
-   }
-
    forceReloadAll() {
      this.store.refresh().subscribe();
    }
 
-   openDialog(): void {
-     const dialogRef = this.dialog.open(MissionCreateComponent);
+  openDialog(mission?: Mission): void {
+    const dialogRef = this.dialog.open(MissionFormComponent, {
+      data: mission ?? null
+    });
 
-     dialogRef.afterClosed().subscribe((result: Mission | null) => {
-       if (result) {
-         this.addMission(result);
-       }
-     });
-   }
+    dialogRef.afterClosed().subscribe((result) => {
+      if (!result) return;
 
-   addMission(payload: Mission) {
-     this.store.add(payload as Omit<Mission, 'id'>).subscribe();
-   }
+      switch (result.type) {
+        case DialogEmitType.CREATE:
+          this.store.add(result.data).subscribe();
+          break;
+        case DialogEmitType.UPDATE:
+          this.store.update(result.data.id, result.data).subscribe();
+          break;
+        case DialogEmitType.DELETE:
+          this.store.remove(result.data.id).subscribe();
+          break;
+        case DialogEmitType.CANCEL:
+          break;
+      }
+    });
+  }
 
    deleteMission(id: number) {
      this.store.remove(id).subscribe();

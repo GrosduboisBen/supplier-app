@@ -29,7 +29,7 @@
       <mat-form-field class="form-field">
         <mat-label>Project</mat-label>
         <mat-select formControlName="projectId">
-          @for(p of projects; track p.id) {
+          @for(p of projects(); track p.id) {
             <mat-option [value]="p.id">{{ p.title }}</mat-option>
           }
         </mat-select>
@@ -39,7 +39,7 @@
       <mat-form-field class="form-field">
         <mat-label>Provider</mat-label>
         <mat-select formControlName="providerId">
-          @for(pr of providers; track pr.id) {
+          @for(pr of providers(); track pr.id) {
             <mat-option [value]="pr.id">{{ pr.name }}</mat-option>
           }
         </mat-select>

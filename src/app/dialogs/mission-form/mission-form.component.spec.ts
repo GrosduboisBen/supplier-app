@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ProviderCreateComponent } from './provider-create.component';
+import { MissionFormComponent } from './mission-form.component';
 
-describe('ProviderCreateComponent', () => {
-  let component: ProviderCreateComponent;
-  let fixture: ComponentFixture<ProviderCreateComponent>;
+describe('MissionFormComponent', () => {
+  let component: MissionFormComponent;
+  let fixture: ComponentFixture<MissionFormComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ProviderCreateComponent]
+      imports: [MissionFormComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(ProviderCreateComponent);
+    fixture = TestBed.createComponent(MissionFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

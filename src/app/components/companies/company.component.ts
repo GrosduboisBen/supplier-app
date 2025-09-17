@@ -4,8 +4,9 @@ import { MATERIAL_IMPORTS } from 'material.import';
 import { Company } from 'src/app/models/company';
 import { CompanyService } from 'src/app/services/company.service';
 import {  MatDialog} from '@angular/material/dialog';
-import { CompanyCreateComponent } from 'src/app/dialogs/company-create/company-create.component';
+import { CompanyFormComponent } from 'src/app/dialogs/company-form/company-form.component';
 import { CompanyStore } from 'src/app/stores/entities-stores/company-store';
+import { DialogEmitType } from 'src/app/dialogs/enum';
 @Component({
     selector: 'app-company',
     templateUrl: './company.component.html',
@@ -39,12 +40,26 @@ export class CompanyComponent implements OnInit {
     this.store.refresh().subscribe();
   }
 
-  openDialog(): void {
-    const dialogRef = this.dialog.open(CompanyCreateComponent);
+  openDialog(company?: Company): void {
+    const dialogRef = this.dialog.open(CompanyFormComponent, {
+      data: company
+    });
 
-    dialogRef.afterClosed().subscribe((result: Company | null) => {
-      if (result) {
-        this.addCompany(result);
+    dialogRef.afterClosed().subscribe((result) => {
+      if (!result) return;
+
+      switch (result.type) {
+        case DialogEmitType.CREATE:
+          this.store.add(result.data).subscribe();
+          break;
+        case DialogEmitType.UPDATE:
+          this.store.update(result.data.id, result.data).subscribe();
+          break;
+        case DialogEmitType.DELETE:
+          this.store.remove(result.data.id).subscribe();
+          break;
+        case DialogEmitType.CANCEL:
+          break;
       }
     });
   }

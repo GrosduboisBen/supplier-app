@@ -6,9 +6,7 @@
 
   <div class="entities-container">
     @if (missions().length === 0) {
-      <div class="empty-state">
-        No data
-      </div>
+      <div class="empty-state">No data</div>
     } @else {
       @for (m of missions(); track m.id) {
         <mat-card class="entity-subcard mat-elevation-z4">
@@ -19,18 +17,22 @@
 
           <mat-card-content>
             <p><strong>Description:</strong> {{ m.description }}</p>
-            <p><strong>Start Date:</strong> {{ m.startDate | date }}</p>
-            <p><strong>End Date:</strong> {{ m.endDate | date }}</p>
-            <p><strong>Order:</strong> {{ m.orderId }}</p>
+            <p><strong>Start Date:</strong> {{ m.startDate | date:'shortDate' }}</p>
+            <p><strong>End Date:</strong> {{ m.endDate | date:'shortDate' }}</p>
+            <p><strong>Order ID:</strong> {{ m.orderId }}</p>
           </mat-card-content>
 
           <mat-card-actions class="action-container">
             <button
-              mat-flat-button color="primary"
-              (click)="updateMission(m.id, { title: m.title + ' (edited)' })">
+              mat-flat-button
+              color="primary"
+              (click)="openDialog(m)">
               Edit
             </button>
-            <button mat-flat-button color="warn" (click)="deleteMission(m.id)">
+            <button
+              mat-flat-button
+              color="warn"
+              (click)="deleteMission(m.id)">
               Delete
             </button>
           </mat-card-actions>

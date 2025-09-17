@@ -2,7 +2,8 @@ import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MATERIAL_IMPORTS } from 'material.import';
-import { ProjectCreateComponent } from 'src/app/dialogs/project-create/project-create.component';
+import { DialogEmitType } from 'src/app/dialogs/enum';
+import { ProjectFormComponent } from 'src/app/dialogs/project-form/project-form.component';
 import { Project } from 'src/app/models/project';
 import { ProjectService } from 'src/app/services/project.service';
 import { ProjectStore } from 'src/app/stores/entities-stores/project-store';
@@ -38,32 +39,31 @@ export class ProjectsComponent implements OnInit {
     this.store.refresh().subscribe();
   }
 
-  // update: call store.update then refresh the single updated item
-  updateProject(id: number, changes: Partial<Project>) {
-    this.store.update(id, changes).subscribe(() => {
-      this.store.refreshOne(id).subscribe();
-    });
-  }
-
   // force reload all entities
   forceReloadAll() {
     this.store.refresh().subscribe();
   }
 
-  // open create dialog; dialog should return the created payload (without id)
-  openDialog(): void {
-    const dialogRef = this.dialog.open(ProjectCreateComponent);
+openDialog(project?: Project): void {
+    const dialogRef = this.dialog.open(ProjectFormComponent, { data: project });
 
-    dialogRef.afterClosed().subscribe((result: Project | null) => {
-      if (result) {
-        this.addProject(result);
+    dialogRef.afterClosed().subscribe((result) => {
+      if (!result) return;
+
+      switch (result.type) {
+        case DialogEmitType.CREATE:
+          this.store.add(result.data).subscribe();
+          break;
+        case DialogEmitType.UPDATE:
+          this.store.update(result.data.id, result.data).subscribe();
+          break;
+        case DialogEmitType.DELETE:
+          this.store.remove(result.data.id).subscribe();
+          break;
+        case DialogEmitType.CANCEL:
+          break;
       }
     });
-  }
-
-  // add: cast to Omit<Project,'id'> to satisfy store signature
-  addProject(payload: Project): void {
-    this.store.add(payload as Omit<Project, 'id'>).subscribe();
   }
 
   // delete: remove by id

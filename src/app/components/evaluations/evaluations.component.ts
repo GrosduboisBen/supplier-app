@@ -5,7 +5,8 @@ import { MATERIAL_IMPORTS } from 'material.import';
 
 import { Evaluation } from 'src/app/models/evaluation';
 import { EvaluationStore } from 'src/app/stores/entities-stores/evaluation-store';
-import { EvaluationCreateComponent } from 'src/app/dialogs/evaluation-create/evaluation-create.component';
+import { EvaluationFormComponent } from 'src/app/dialogs/evaluation-form/evaluation-form.component';
+import { DialogEmitType } from 'src/app/dialogs/enum';
 
 @Component({
   selector: 'app-evaluations',
@@ -36,16 +37,30 @@ export class EvaluationsComponent implements OnInit {
   deleteEvaluation(id: number) {
     this.store.remove(id).subscribe();
   }
+  openDialog(evaluation?: Evaluation): void {
+    const dialogRef = this.dialog.open(EvaluationFormComponent, {
+      data: evaluation ?? null
+    });
 
-  openDialog(): void {
-    const dialogRef = this.dialog.open(EvaluationCreateComponent);
+    dialogRef.afterClosed().subscribe((result) => {
+      if (!result) return;
 
-    dialogRef.afterClosed().subscribe((result: Evaluation | null) => {
-      if (result) {
-        this.addEvaluation(result);
+      switch (result.type) {
+        case DialogEmitType.CREATE:
+          this.store.add(result.data).subscribe();
+          break;
+        case DialogEmitType.UPDATE:
+          this.store.update(result.data.id, result.data).subscribe();
+          break;
+        case DialogEmitType.DELETE:
+          this.store.remove(result.data.id).subscribe();
+          break;
+        case DialogEmitType.CANCEL:
+          break;
       }
     });
   }
+
 
   addEvaluation(payload: Omit<Evaluation, 'id'>) {
     this.store.add(payload).subscribe();

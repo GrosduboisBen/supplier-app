@@ -25,9 +25,7 @@
           </mat-card-content>
 
           <mat-card-actions class="action-container">
-            <button
-              mat-flat-button color="primary"
-              (click)="updateOrder(o.id, { description: o.description + ' (edited)' })">
+            <button mat-flat-button color="primary" (click)="openDialog(o)">
               Edit
             </button>
             <button mat-flat-button color="warn" (click)="deleteOrder(o.id)">
