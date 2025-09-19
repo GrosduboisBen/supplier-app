@@ -18,8 +18,21 @@
   flex-direction: row;
   gap: 2em;
   align-items: baseline;
+  >.title {
+    color: #b67702;
+  }
   > .subtitle {
     font-size: 1em;
-    color: #b67702;
+    color: #fff;
+  }
+}
+
+.routes-buttons {
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 1em 1em rgba(0, 0, 0, 0.15);
+    background-color: #b67702;
   }
 }
