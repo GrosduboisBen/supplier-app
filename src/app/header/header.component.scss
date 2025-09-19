@@ -19,7 +19,7 @@
   gap: 2em;
   align-items: baseline;
   >.title {
-    color: #b67702;
+    color: #0392e6;
   }
   > .subtitle {
     font-size: 1em;
@@ -33,6 +33,6 @@
   &:hover {
     transform: translateY(-3px);
     box-shadow: 0 1em 1em rgba(0, 0, 0, 0.15);
-    background-color: #b67702;
+    background-color: #0392e6;
   }
 }
