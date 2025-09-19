@@ -44,27 +44,27 @@ export class ProjectsComponent implements OnInit {
     this.store.refresh().subscribe();
   }
 
-openDialog(project?: Project): void {
-    const dialogRef = this.dialog.open(ProjectFormComponent, { data: project });
+  openDialog(project?: Project): void {
+      const dialogRef = this.dialog.open(ProjectFormComponent, { data: project });
 
-    dialogRef.afterClosed().subscribe((result) => {
-      if (!result) return;
+      dialogRef.afterClosed().subscribe((result) => {
+        if (!result) return;
 
-      switch (result.type) {
-        case DialogEmitType.CREATE:
-          this.store.add(result.data).subscribe();
-          break;
-        case DialogEmitType.UPDATE:
-          this.store.update(result.data.id, result.data).subscribe();
-          break;
-        case DialogEmitType.DELETE:
-          this.store.remove(result.data.id).subscribe();
-          break;
-        case DialogEmitType.CANCEL:
-          break;
-      }
-    });
-  }
+        switch (result.type) {
+          case DialogEmitType.CREATE:
+            this.store.add(result.data).subscribe();
+            break;
+          case DialogEmitType.UPDATE:
+            this.store.update(result.data.id, result.data).subscribe();
+            break;
+          case DialogEmitType.DELETE:
+            this.store.remove(result.data.id).subscribe();
+            break;
+          case DialogEmitType.CANCEL:
+            break;
+        }
+      });
+    }
 
   // delete: remove by id
   deleteProject(id: number): void {
