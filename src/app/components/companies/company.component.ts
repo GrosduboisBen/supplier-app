@@ -7,6 +7,7 @@ import {  MatDialog} from '@angular/material/dialog';
 import { CompanyFormComponent } from 'src/app/dialogs/company-form/company-form.component';
 import { CompanyStore } from 'src/app/stores/entities-stores/company-store';
 import { DialogEmitType } from 'src/app/dialogs/enum';
+import { Router } from '@angular/router';
 @Component({
     selector: 'app-company',
     templateUrl: './company.component.html',
@@ -18,7 +19,7 @@ import { DialogEmitType } from 'src/app/dialogs/enum';
     styleUrls: ['./company.component.scss'],
 })
 export class CompanyComponent implements OnInit {
-  constructor(private store: CompanyStore) {}
+  constructor(private store: CompanyStore,private router: Router) {}
 
   displayedColumns = ['id', 'name', 'email', 'contact', 'industry'];
   companyService = inject(CompanyService);
@@ -28,6 +29,10 @@ export class CompanyComponent implements OnInit {
 
   ngOnInit(): void {
     this.store.refresh().subscribe();
+  }
+
+  goToOverview(id: number) {
+    this.router.navigate(['/companies', id, 'overview']);
   }
 
   updateCompany(id: number, changes: Partial<Company>) {
