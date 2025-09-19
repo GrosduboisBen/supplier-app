@@ -20,6 +20,10 @@ export class ProjectService {
     return this.http.get<Project>(`${this.apiUrl}/${id}`);
   }
 
+  getByCompanyId(companyId: number): Observable<Project[]> {
+    return this.http.get<Project[]>(`${this.apiUrl}/by-company/${companyId}`);
+  }
+
   create(payload: Omit<Project, 'id'>): Observable<Project> {
     return this.http.post<Project>(this.apiUrl, payload);
   }
