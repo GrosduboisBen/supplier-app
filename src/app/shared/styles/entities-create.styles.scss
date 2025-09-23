@@ -1,16 +1,23 @@
+@use '@angular/material' as mat;
+
 .form-main-card {
   background-color: #52616d;
-  border-radius: 0.5em;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   min-width: 60em;
-  min-height: 40em
+  min-height: 30em;
+  display: flex;
+  justify-content: space-between;
 }
 
 .form-card-title{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
   font-weight: bold;
   font-size: large;
-  padding: 0.3em;
+  padding: 0.5em;
   color: #0392e6;
+  background-color: #4a5864;
 }
 
 .form-container {
@@ -19,7 +26,6 @@
   flex-direction: column;
   align-items: center;
   gap: 1em;
-  background-color: #4a5864;
   max-width: 60em;
 }
 
@@ -31,5 +37,24 @@
   display: flex;
   gap: 0.5em;
   justify-content: flex-end;
-  margin-bottom: 1em;
+  margin-bottom: 1.5em;
+  margin-right: 1.5em;
+}
+
+.cancel-edit-button {
+  color: #fff;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
+  &:hover {
+    color: #f14029;
+  }
+}
+
+.update-entity-button {
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+  background-color: #0392e6;
+  color: #fff;
+  &:hover {
+    background-color: #fff;
+    color: #0392e6;
+  }
 }
