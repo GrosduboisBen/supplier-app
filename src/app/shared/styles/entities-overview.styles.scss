@@ -1,0 +1,25 @@
+.overview-main-content {
+  margin-bottom: 1.5em;
+}
+
+.overview-main-title {
+  font-weight: bold;
+  font-size: large;
+  padding: 0.5em;
+  color: #0392e6;
+  background-color: #4a5864;
+}
+
+.overview-secondary-title {
+  padding: 0.5em;
+  font-weight: bold;
+  color: #fff;
+}
+
+.secondary-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(15em, 1fr));
+  gap: 1em;
+  max-width: 60em;
+  padding: 0.5em;
+}
