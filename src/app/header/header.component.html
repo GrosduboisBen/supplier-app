@@ -1,6 +1,9 @@
 <div class="header-container">
   <header class="app-header">
     <div class="header-left">
+      @if(overview() === true) {
+        <mat-icon class="back-button" (click)="navigateBack()">arrow_circle_left</mat-icon>
+      }
       <h2 class="title">IS Demo App</h2>
       <h3 class="subtitle">{{ subtitle }}</h3>
     </div>

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd, RouterModule } from '@angular/router';
 import { MATERIAL_IMPORTS } from 'material.import';
 import { filter } from 'rxjs/operators';
+import { HeaderStore } from '../stores/app-stores/header-store';
 
 @Component({
   selector: 'app-header',
@@ -15,10 +16,10 @@ import { filter } from 'rxjs/operators';
 
 })
 export class HeaderComponent implements OnInit {
+  constructor(private router: Router,private headerStore: HeaderStore) {}
 
   subtitle = '';
-
-  constructor(private router: Router) {}
+  overview = this.headerStore.status;
 
   ngOnInit(): void {
     this.router.events.pipe(
@@ -26,6 +27,12 @@ export class HeaderComponent implements OnInit {
     ).subscribe((event: NavigationEnd) => {
       this.updateSubtitle(event.urlAfterRedirects);
     });
+  }
+
+  public navigateBack() {
+    this.router.navigate([this.headerStore.back()]);
+    this.headerStore.unsetOverview();
+    this.headerStore.unsetRoute();
   }
 
   private updateSubtitle(url: string) {
