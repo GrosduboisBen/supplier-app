@@ -6,6 +6,8 @@ import { Order } from 'src/app/models/order';
 import { OrderStore } from 'src/app/stores/entities-stores/order-store';
 import { OrderFormComponent } from 'src/app/dialogs/order-form/order-form.component';
 import { DialogEmitType } from 'src/app/dialogs/enum';
+import { Router } from '@angular/router';
+import { HeaderStore } from 'src/app/stores/app-stores/header-store';
 
 @Component({
   selector: 'app-orders',
@@ -18,7 +20,7 @@ import { DialogEmitType } from 'src/app/dialogs/enum';
   ],
 })
 export class OrdersComponent implements OnInit {
-  constructor(private store: OrderStore) {}
+  constructor(private store: OrderStore,private router: Router,private headerStore: HeaderStore) {}
   dialog = inject(MatDialog);
 
   orders = this.store.all;
@@ -27,9 +29,10 @@ export class OrdersComponent implements OnInit {
     this.store.refresh().subscribe();
   }
 
-
-  forceReloadAll() {
-    this.store.refresh().subscribe();
+  goToOverview(id: number,projectId: number,providerId: number,) {
+    this.router.navigate(['/orders', id,projectId,providerId, 'overview']);
+    this.headerStore.setRoute(this.router.url);
+    this.headerStore.setOverview();
   }
 
   openDialog(order?: Order): void {
@@ -54,9 +57,5 @@ export class OrdersComponent implements OnInit {
           break;
       }
     });
-  }
-
-  deleteOrder(id: number) {
-    this.store.remove(id).subscribe();
   }
 }
