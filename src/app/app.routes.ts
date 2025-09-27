@@ -8,6 +8,7 @@ import { EvaluationsComponent } from './components/evaluations/evaluations.compo
 import { CompanyOverviewComponent } from './components/companies/company-overview/company-overview.component';
 import { ProjectOverviewComponent } from './components/projects/project-overview/project-overview.component';
 import { OrderOverviewComponent } from './components/orders/order-overview/order-overview.component';
+import { MissionOverviewComponent } from './components/missions/mission-overview/mission-overview.component';
 // ajoute les autres composants
 
 export const appRoutes: Routes = [
@@ -16,6 +17,7 @@ export const appRoutes: Routes = [
   { path: 'projects', component: ProjectsComponent },
   { path: 'projects/:id/:companyId/overview', component: ProjectOverviewComponent},
   { path: 'missions', component: MissionsComponent },
+    { path: 'missions/:id/:orderId/overview', component: MissionOverviewComponent},
   { path: 'providers', component: ProviderComponent },
   { path: 'orders', component: OrdersComponent },
   { path: 'orders/:id/overview', component: OrderOverviewComponent},
