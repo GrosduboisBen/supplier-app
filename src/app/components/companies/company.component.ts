@@ -39,16 +39,6 @@ export class CompanyComponent implements OnInit {
     this.headerStore.setOverview();
   }
 
-  updateCompany(id: number, changes: Partial<Company>) {
-    this.store.update(id, changes).subscribe(() => {
-      this.store.refreshOne(id).subscribe();
-    });
-  }
-
-  forceReloadAll() {
-    this.store.refresh().subscribe();
-  }
-
   openDialog(company?: Company): void {
     const dialogRef = this.dialog.open(CompanyFormComponent, {
       data: company
@@ -71,9 +61,5 @@ export class CompanyComponent implements OnInit {
           break;
       }
     });
-  }
-
-  addCompany(payload: Company): void {
-    this.store.add(payload).subscribe();
   }
 }
