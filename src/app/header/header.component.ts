@@ -47,13 +47,13 @@ export class HeaderComponent implements OnInit {
         this.subtitle = 'Providers';
         break;
       case '/orders':
-        this.subtitle = 'Orders overview';
+        this.subtitle = 'Orders';
         break;
       case '/missions':
-        this.subtitle = 'Mission tracker';
+        this.subtitle = 'Missions';
         break;
       case '/evaluations':
-        this.subtitle = 'Evaluate missions';
+        this.subtitle = 'Evaluations';
         break;
       default:
         this.subtitle = '';
