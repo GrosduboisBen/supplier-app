@@ -41,10 +41,5 @@ export class CompanyOverviewComponent implements OnInit {
     this.projectService.getByCompanyId(id).subscribe({
       next: (projects) => this.projects.set(projects)
     });
-
-    // hydrate les projets associés à la company
-    this.projectService.getByCompanyId(id).subscribe({
-      next: (projects) => this.projects.set(projects)
-    });
   }
 }
