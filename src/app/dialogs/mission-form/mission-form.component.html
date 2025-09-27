@@ -1,52 +1,54 @@
 <mat-card class="form-main-card">
-  <mat-card-title class="form-card-title">
-    {{ mission ? 'Edit Mission' : 'Create Mission' }}
-  </mat-card-title>
+  <div>
+    <mat-card-title class="form-card-title">
+      <span>
+        {{ mission ? 'Edit Mission' : 'Create Mission' }}
+      </span>
+      <mat-icon class="cancel-edit-button" (click)="cancel()">cancel</mat-icon>
+    </mat-card-title>
+    <form class="entity-form" [formGroup]="form" (ngSubmit)="submit()">
+      <div class="form-container">
+        <mat-form-field class="form-field">
+          <mat-label>Title</mat-label>
+          <input matInput formControlName="title" placeholder="Mission Title" />
+        </mat-form-field>
 
-  <form class="entity-form" [formGroup]="form" (ngSubmit)="submit()">
-    <div class="form-container">
-      <mat-form-field class="form-field">
-        <mat-label>Title</mat-label>
-        <input matInput formControlName="title" placeholder="Mission Title" />
-      </mat-form-field>
+        <mat-form-field class="form-field">
+          <mat-label>Description</mat-label>
+          <textarea matInput formControlName="description" placeholder="Description"></textarea>
+        </mat-form-field>
 
-      <mat-form-field class="form-field">
-        <mat-label>Description</mat-label>
-        <textarea matInput formControlName="description" placeholder="Description"></textarea>
-      </mat-form-field>
+        <mat-form-field class="form-field">
+          <mat-label>Start Date</mat-label>
+          <input matInput [matDatepicker]="startPicker" formControlName="startDate" />
+          <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+          <mat-datepicker #startPicker></mat-datepicker>
+        </mat-form-field>
 
-      <mat-form-field class="form-field">
-        <mat-label>Start Date</mat-label>
-        <input matInput [matDatepicker]="startPicker" formControlName="startDate" />
-        <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
-        <mat-datepicker #startPicker></mat-datepicker>
-      </mat-form-field>
+        <mat-form-field class="form-field">
+          <mat-label>End Date</mat-label>
+          <input matInput [matDatepicker]="endPicker" formControlName="endDate" />
+          <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
+          <mat-datepicker #endPicker></mat-datepicker>
+        </mat-form-field>
 
-      <mat-form-field class="form-field">
-        <mat-label>End Date</mat-label>
-        <input matInput [matDatepicker]="endPicker" formControlName="endDate" />
-        <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
-        <mat-datepicker #endPicker></mat-datepicker>
-      </mat-form-field>
+        <mat-form-field class="form-field">
+          <mat-label>Order</mat-label>
+          <mat-select formControlName="orderId">
+            @for(o of orders(); track o.id) {
+              <mat-option [value]="o.id">
+                {{ o.description }} (Qty: {{ o.quantity }})
+              </mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </form>
+  </div>
+  <div class="action-container">
+    <button class="update-entity-button" mat-flat-button color="primary" (click)="submit()">
+      {{ mission ? 'Update' : 'Create' }}
+    </button>
+  </div>
 
-      <mat-form-field class="form-field">
-        <mat-label>Order</mat-label>
-        <mat-select formControlName="orderId">
-          @for(o of orders(); track o.id) {
-            <mat-option [value]="o.id">
-              {{ o.description }} (Qty: {{ o.quantity }})
-            </mat-option>
-          }
-        </mat-select>
-      </mat-form-field>
-    </div>
-
-    <div class="actions">
-      <button mat-flat-button color="primary" type="submit">
-        {{ mission ? 'Update' : 'Create' }}
-      </button>
-      <button mat-button type="button" (click)="cancel()">Cancel</button>
-      <button mat-button color="warn" type="button" *ngIf="mission" (click)="delete()">Delete</button>
-    </div>
-  </form>
 </mat-card>

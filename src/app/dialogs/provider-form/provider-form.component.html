@@ -1,45 +1,43 @@
 <mat-card class="form-main-card">
-  <mat-card-title class="form-card-title">
-    {{ provider ? 'Edit Provider' : 'Create Provider' }}
-  </mat-card-title>
+  <div>
+    <mat-card-title class="form-card-title">
+      <span>
+        {{ provider ? 'Edit Provider' : 'Create Provider' }}
+      </span>
+      <mat-icon class="cancel-edit-button" (click)="cancel()">cancel</mat-icon>
+    </mat-card-title>
 
-  <form class="entity-form" [formGroup]="form" (ngSubmit)="submit()">
-    <div class="form-container">
-      <mat-form-field class="form-field">
-        <mat-label>Name</mat-label>
-        <input matInput formControlName="name" placeholder="Provider Name" />
-      </mat-form-field>
+    <form class="entity-form" [formGroup]="form" (ngSubmit)="submit()">
+      <div class="form-container">
+        <mat-form-field class="form-field">
+          <mat-label>Name</mat-label>
+          <input matInput formControlName="name" placeholder="Provider Name" />
+        </mat-form-field>
 
-      <mat-form-field class="form-field">
-        <mat-label>Contact</mat-label>
-        <input matInput formControlName="contact" placeholder="Contact" />
-      </mat-form-field>
+        <mat-form-field class="form-field">
+          <mat-label>Contact</mat-label>
+          <input matInput formControlName="contact" placeholder="Contact" />
+        </mat-form-field>
 
-      <mat-form-field class="form-field">
-        <mat-label>Email</mat-label>
-        <input matInput formControlName="email" placeholder="Email" />
-      </mat-form-field>
+        <mat-form-field class="form-field">
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="email" placeholder="Email" />
+        </mat-form-field>
 
-      <mat-form-field class="form-field">
-        <mat-label>Category</mat-label>
-        <mat-select formControlName="category">
-          @for (cat of categoryKeys; track cat) {
-            <mat-option [value]="cat">{{ categoryLabel(cat) }}</mat-option>
-          }
-        </mat-select>
-      </mat-form-field>
-    </div>
-
-    <div class="actions">
-      <button mat-flat-button color="primary" type="submit">
-        {{ provider ? 'Update' : 'Create' }}
-      </button>
-
-      <button mat-button type="button" (click)="cancel()">Cancel</button>
-
-      <button mat-button color="warn" type="button" *ngIf="provider" (click)="delete()">
-        Delete
-      </button>
-    </div>
-  </form>
+        <mat-form-field class="form-field">
+          <mat-label>Category</mat-label>
+          <mat-select formControlName="category">
+            @for (cat of categoryKeys; track cat) {
+              <mat-option [value]="cat">{{ categoryLabel(cat) }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </form>
+  </div>
+  <div class="action-container">
+    <button class="update-entity-button" mat-flat-button (click)="submit()">
+      {{ provider ? 'Update' : 'Create' }}
+    </button>
+  </div>
 </mat-card>

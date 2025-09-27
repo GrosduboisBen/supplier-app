@@ -1,0 +1,4 @@
+:host ::ng-deep {
+  @import 'src/app/shared/styles/entities-overview.styles.scss';
+  @import 'src/app/shared/styles/entities.styles.scss';
+}

@@ -1,11 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { MATERIAL_IMPORTS } from 'material.import';
 import { DialogEmitType } from 'src/app/dialogs/enum';
 import { ProviderFormComponent } from 'src/app/dialogs/provider-form/provider-form.component';
 import { Provider } from 'src/app/models/provider';
 import { ProviderService } from 'src/app/services/provider.service';
+import { HeaderStore } from 'src/app/stores/app-stores/header-store';
 import { ProviderStore } from 'src/app/stores/entities-stores/provider-store';
 
 @Component({
@@ -19,7 +21,7 @@ import { ProviderStore } from 'src/app/stores/entities-stores/provider-store';
     ],
 })
 export class ProviderComponent implements OnInit {
-  constructor(private store: ProviderStore) {}
+  constructor(private store: ProviderStore,private router: Router,private headerStore: HeaderStore) {}
 
   displayedColumns = ['id', 'name', 'email', 'contact', 'category'];
   providerService = inject(ProviderService);
@@ -28,16 +30,6 @@ export class ProviderComponent implements OnInit {
   providers = this.store.all;
 
   ngOnInit(): void {
-    this.store.refresh().subscribe();
-  }
-
-  updateProvider(id: number, changes: Partial<Provider>) {
-    this.store.update(id, changes).subscribe(() => {
-      this.store.refreshOne(id).subscribe();
-    });
-  }
-
-  forceReloadAll() {
     this.store.refresh().subscribe();
   }
 
@@ -63,8 +55,5 @@ export class ProviderComponent implements OnInit {
           break;
       }
     });
-  }
-   deleteProvider(id: number): void {
-    this.store.remove(id).subscribe();
   }
 }

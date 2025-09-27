@@ -5,14 +5,29 @@
   width: fit-content;
 }
 
-.entity-card-title{
+.entity-add-button {
+  color: #fff;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
+  &:hover {
+    color: #0392e6;
+  }
+}
+.entity-delete-button {
+  transition: transform 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
+  &:hover {
+    color: #b43900;
+  }
+}
+
+.entity-card-title {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
   font-weight: bold;
   font-size: large;
-  padding: 0.3em;
-  color: #b67702;
+  padding: 0.4em;
+  color: #0392e6;
 }
 
 .entities-container {
@@ -23,14 +38,12 @@
   background-color: #4a5864;
   max-width: 60em;
   padding: 1em;
-
 }
 
-.action-container{
+.action-container {
   display: flex;
-  gap: 0.5em;
+  gap: 0.3em;
   justify-content: flex-end;
-  margin-bottom: 1em;
 }
 
 .entity-subcard {
@@ -38,11 +51,23 @@
   margin-bottom: 1em;
   background-color: #7e95a8;
   border-radius: 0.5em;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease ;
 
   &:hover {
     transform: translateY(-3px);
     box-shadow: 0 1em 1em rgba(0, 0, 0, 0.15);
   }
 }
-.subcard-subtitle { font-weight: bold;}
+
+.subheader {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 0.5em 0.1em 0.5em 1em;
+}
+.subcard-title {
+  font-weight: bold;
+}
+.subcard-subtitle {
+  margin-top: 0.5em;
+}

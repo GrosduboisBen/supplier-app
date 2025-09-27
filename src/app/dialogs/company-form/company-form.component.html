@@ -1,41 +1,40 @@
 <mat-card class="form-main-card">
-  <mat-card-title class="form-card-title">
-    {{ company ? 'Edit Company' : 'Create Company' }}
-  </mat-card-title>
+  <div>
+    <mat-card-title class="form-card-title">
+      <span>
+        {{ company ? 'Edit Company' : 'Create Company' }}
+      </span>
+      <mat-icon class="cancel-edit-button" (click)="cancel()">cancel</mat-icon>
+    </mat-card-title>
 
-  <form class="entity-form" [formGroup]="form" (ngSubmit)="submit()">
-    <div class="form-container">
-      <mat-form-field class="form-field">
-        <mat-label>Name</mat-label>
-        <input matInput formControlName="name" />
-      </mat-form-field>
+    <form class="entity-form" [formGroup]="form" (ngSubmit)="submit()">
+      <div class="form-container">
+        <mat-form-field class="form-field">
+          <mat-label>Name</mat-label>
+          <input matInput formControlName="name" />
+        </mat-form-field>
 
-      <mat-form-field class="form-field">
-        <mat-label>Contact</mat-label>
-        <input matInput formControlName="contact" />
-      </mat-form-field>
+        <mat-form-field class="form-field">
+          <mat-label>Contact</mat-label>
+          <input matInput formControlName="contact" />
+        </mat-form-field>
 
-      <mat-form-field class="form-field">
-        <mat-label>Email</mat-label>
-        <input matInput formControlName="email" />
-      </mat-form-field>
+        <mat-form-field class="form-field">
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="email" />
+        </mat-form-field>
 
-      <mat-form-field class="form-field">
-        <mat-label>Industry</mat-label>
-        <input matInput formControlName="industry" />
-      </mat-form-field>
-    </div>
+        <mat-form-field class="form-field">
+          <mat-label>Industry</mat-label>
+          <input matInput formControlName="industry" />
+        </mat-form-field>
+      </div>
+    </form>
+  </div>
 
-    <div class="actions">
-      <button mat-flat-button color="primary" type="submit">
-        {{ company ? 'Update' : 'Create' }}
-      </button>
-
-      <button mat-button type="button" (click)="cancel()">Cancel</button>
-
-      <button mat-button color="warn" type="button" *ngIf="company" (click)="delete()">
-        Delete
-      </button>
-    </div>
-  </form>
+  <div class="action-container">
+    <button class="update-entity-button" mat-flat-button (click)="submit()">
+      {{ company ? 'Update' : 'Create' }}
+    </button>
+  </div>
 </mat-card>

@@ -1,0 +1,39 @@
+<mat-card class="entity-main-card">
+  @if (project(); as p) {
+    <mat-card-title class="overview-main-title">
+      {{ p.title }}
+    </mat-card-title>
+    <mat-card-content class="overview-main-content">
+      <p><strong>Description:</strong> {{ p.description }}</p>
+      <p><strong>Budget:</strong> {{ p.budget | currency }}</p>
+    </mat-card-content>
+
+    <mat-divider></mat-divider>
+    <mat-card-title class="overview-secondary-title">
+     <p>{{p.title}}'s company</p>
+    </mat-card-title>
+    <mat-divider></mat-divider>
+
+    <mat-card-content>
+      <div class="secondary-container">
+        @if (company(); as c) {
+          <mat-card class="entity-subcard mat-elevation-z4">
+            <mat-card-header>
+              <mat-card-title>{{ c.name }}</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+              <p><strong>Email:</strong> {{ c.email }}</p>
+              <p><strong>Contact:</strong> {{ c.contact }}</p>
+              <p><strong>Industry:</strong> {{ c.industry }}</p>
+            </mat-card-content>
+          </mat-card>
+        } @else {
+          <div class="empty-state">No company associated for this project</div>
+        }
+      </div>
+    </mat-card-content>
+
+    } @else {
+    <div class="loading-state">Loading project...</div>
+  }
+</mat-card>

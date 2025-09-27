@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd, RouterModule } from '@angular/router';
 import { MATERIAL_IMPORTS } from 'material.import';
 import { filter } from 'rxjs/operators';
+import { HeaderStore } from '../stores/app-stores/header-store';
 
 @Component({
   selector: 'app-header',
@@ -15,10 +16,10 @@ import { filter } from 'rxjs/operators';
 
 })
 export class HeaderComponent implements OnInit {
+  constructor(private router: Router,private headerStore: HeaderStore) {}
 
   subtitle = '';
-
-  constructor(private router: Router) {}
+  overview = this.headerStore.status;
 
   ngOnInit(): void {
     this.router.events.pipe(
@@ -28,25 +29,32 @@ export class HeaderComponent implements OnInit {
     });
   }
 
+  public navigateBack() {
+    this.router.navigate([this.headerStore.back()]);
+    this.headerStore.unsetOverview();
+    this.headerStore.unsetRoute();
+  }
+
   private updateSubtitle(url: string) {
-    switch(url) {
-      case '/companies':
+    const baseNavigation = url.split('/')[1]
+    switch(baseNavigation) {
+      case 'companies':
         this.subtitle = 'Companies';
         break;
-      case '/projects':
+      case 'projects':
         this.subtitle = 'Projects';
         break;
-      case '/providers':
+      case 'providers':
         this.subtitle = 'Providers';
         break;
-      case '/orders':
-        this.subtitle = 'Orders overview';
+      case 'orders':
+        this.subtitle = 'Orders';
         break;
-      case '/missions':
-        this.subtitle = 'Mission tracker';
+      case 'missions':
+        this.subtitle = 'Missions';
         break;
-      case '/evaluations':
-        this.subtitle = 'Evaluate missions';
+      case 'evaluations':
+        this.subtitle = 'Evaluations';
         break;
       default:
         this.subtitle = '';

@@ -58,12 +58,6 @@ export class CompanyFormComponent implements  OnInit {
     }
   }
 
-  delete(): void {
-    if (this.company) {
-      this.dialogRef.close({ type: DialogEmitType.DELETE, data: this.company });
-    }
-  }
-
   cancel(): void {
     this.dialogRef.close({ type: DialogEmitType.CANCEL });
   }

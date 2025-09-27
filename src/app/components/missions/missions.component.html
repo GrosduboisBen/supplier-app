@@ -1,7 +1,7 @@
 <mat-card class="entity-main-card">
   <mat-card-title class="entity-card-title">
     Missions
-    <button mat-flat-button color="accent" (click)="openDialog()">Add</button>
+    <mat-icon class="entity-add-button" (click)="openDialog()">add_circle</mat-icon>
   </mat-card-title>
 
   <div class="entities-container">
@@ -10,9 +10,13 @@
     } @else {
       @for (m of missions(); track m.id) {
         <mat-card class="entity-subcard mat-elevation-z4">
-          <mat-card-header>
-            <mat-card-title class="subcard-subtitle">Mission #{{ m.id }}</mat-card-title>
-            <mat-card-subtitle>{{ m.title }}</mat-card-subtitle>
+          <mat-card-header class="subheader">
+            <mat-card-title class="subcard-title">{{ m.title }}</mat-card-title>
+            <div class="action-container">
+                <mat-icon class="entity-add-button" (click)="openDialog(m)" >note_alt</mat-icon>
+                  <mat-icon class="entity-add-button"(click)="goToOverview(m.id,m.orderId)">preview</mat-icon>
+                <mat-icon class="entity-delete-button" color="warn">delete</mat-icon>
+            </div>
           </mat-card-header>
 
           <mat-card-content>
@@ -21,21 +25,6 @@
             <p><strong>End Date:</strong> {{ m.endDate | date:'shortDate' }}</p>
             <p><strong>Order ID:</strong> {{ m.orderId }}</p>
           </mat-card-content>
-
-          <mat-card-actions class="action-container">
-            <button
-              mat-flat-button
-              color="primary"
-              (click)="openDialog(m)">
-              Edit
-            </button>
-            <button
-              mat-flat-button
-              color="warn"
-              (click)="deleteMission(m.id)">
-              Delete
-            </button>
-          </mat-card-actions>
         </mat-card>
       }
     }

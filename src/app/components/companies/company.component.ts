@@ -7,6 +7,8 @@ import {  MatDialog} from '@angular/material/dialog';
 import { CompanyFormComponent } from 'src/app/dialogs/company-form/company-form.component';
 import { CompanyStore } from 'src/app/stores/entities-stores/company-store';
 import { DialogEmitType } from 'src/app/dialogs/enum';
+import { Router } from '@angular/router';
+import { HeaderStore } from 'src/app/stores/app-stores/header-store';
 @Component({
     selector: 'app-company',
     templateUrl: './company.component.html',
@@ -18,26 +20,22 @@ import { DialogEmitType } from 'src/app/dialogs/enum';
     styleUrls: ['./company.component.scss'],
 })
 export class CompanyComponent implements OnInit {
-  constructor(private store: CompanyStore) {}
+  constructor(private store: CompanyStore,private router: Router,private headerStore: HeaderStore) {}
 
   displayedColumns = ['id', 'name', 'email', 'contact', 'industry'];
   companyService = inject(CompanyService);
   dialog = inject(MatDialog);
-
   companies = this.store.all;
 
   ngOnInit(): void {
     this.store.refresh().subscribe();
+    this.headerStore.unsetOverview();
   }
 
-  updateCompany(id: number, changes: Partial<Company>) {
-    this.store.update(id, changes).subscribe(() => {
-      this.store.refreshOne(id).subscribe();
-    });
-  }
-
-  forceReloadAll() {
-    this.store.refresh().subscribe();
+  goToOverview(id: number) {
+    this.router.navigate(['/companies', id, 'overview']);
+    this.headerStore.setRoute(this.router.url);
+    this.headerStore.setOverview();
   }
 
   openDialog(company?: Company): void {
@@ -62,9 +60,5 @@ export class CompanyComponent implements OnInit {
           break;
       }
     });
-  }
-
-  addCompany(payload: Company): void {
-    this.store.add(payload).subscribe();
   }
 }

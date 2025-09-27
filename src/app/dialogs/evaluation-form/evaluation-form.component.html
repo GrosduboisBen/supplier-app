@@ -1,44 +1,46 @@
 <mat-card class="form-main-card">
-  <mat-card-title class="form-card-title">
-    {{ evaluation ? 'Edit Evaluation' : 'Create Evaluation' }}
-  </mat-card-title>
+  <div>
+    <mat-card-title class="form-card-title">
+      <span>
+        {{ evaluation ? 'Edit Evaluation' : 'Create Evaluation' }}
+      </span>
+      <mat-icon class="cancel-edit-button" (click)="cancel()">cancel</mat-icon>
+    </mat-card-title>
+    <form class="entity-form" [formGroup]="form" (ngSubmit)="submit()">
+      <div class="form-container">
 
-  <form class="entity-form" [formGroup]="form" (ngSubmit)="submit()">
-    <div class="form-container">
+        <!-- Rating -->
+        <mat-form-field class="form-field">
+          <mat-label>Rating</mat-label>
+          <mat-select formControlName="rating">
+            @for(r of [1,2,3,4,5]; track r) {
+              <mat-option [value]="r">{{ r }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
 
-      <!-- Rating -->
-      <mat-form-field class="form-field">
-        <mat-label>Rating</mat-label>
-        <mat-select formControlName="rating">
-          @for(r of [1,2,3,4,5]; track r) {
-            <mat-option [value]="r">{{ r }}</mat-option>
-          }
-        </mat-select>
-      </mat-form-field>
+        <!-- Comment -->
+        <mat-form-field class="form-field">
+          <mat-label>Comment</mat-label>
+          <textarea matInput formControlName="comment" placeholder="Your comment"></textarea>
+        </mat-form-field>
 
-      <!-- Comment -->
-      <mat-form-field class="form-field">
-        <mat-label>Comment</mat-label>
-        <textarea matInput formControlName="comment" placeholder="Your comment"></textarea>
-      </mat-form-field>
+        <!-- Mission -->
+        <mat-form-field class="form-field">
+          <mat-label>Mission</mat-label>
+          <mat-select formControlName="missionId">
+            @for(m of missions(); track m.id) {
+              <mat-option [value]="m.id">{{ m.title }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </form>
+  </div>
+  <div class="action-container">
+    <button class="update-entity-button" mat-flat-button (click)="submit()">
+      {{ evaluation ? 'Update' : 'Create' }}
+    </button>
+  </div>
 
-      <!-- Mission -->
-      <mat-form-field class="form-field">
-        <mat-label>Mission</mat-label>
-        <mat-select formControlName="missionId">
-          @for(m of missions(); track m.id) {
-            <mat-option [value]="m.id">{{ m.title }}</mat-option>
-          }
-        </mat-select>
-      </mat-form-field>
-    </div>
-
-    <div class="actions">
-      <button mat-flat-button color="primary" type="submit">
-        {{ evaluation ? 'Update' : 'Create' }}
-      </button>
-      <button mat-button type="button" (click)="cancel()">Cancel</button>
-      <button mat-button color="warn" type="button" *ngIf="evaluation" (click)="delete()">Delete</button>
-    </div>
-  </form>
 </mat-card>

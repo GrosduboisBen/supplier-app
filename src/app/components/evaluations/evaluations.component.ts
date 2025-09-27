@@ -28,15 +28,6 @@ export class EvaluationsComponent implements OnInit {
     this.store.refresh().subscribe();
   }
 
-  updateEvaluation(id: number, changes: Partial<Evaluation>) {
-    this.store.update(id, changes).subscribe(() => {
-      this.store.refreshOne(id).subscribe();
-    });
-  }
-
-  deleteEvaluation(id: number) {
-    this.store.remove(id).subscribe();
-  }
   openDialog(evaluation?: Evaluation): void {
     const dialogRef = this.dialog.open(EvaluationFormComponent, {
       data: evaluation ?? null
@@ -59,10 +50,5 @@ export class EvaluationsComponent implements OnInit {
           break;
       }
     });
-  }
-
-
-  addEvaluation(payload: Omit<Evaluation, 'id'>) {
-    this.store.add(payload).subscribe();
   }
 }
