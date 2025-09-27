@@ -8,6 +8,7 @@ import { CompanyFormComponent } from 'src/app/dialogs/company-form/company-form.
 import { CompanyStore } from 'src/app/stores/entities-stores/company-store';
 import { DialogEmitType } from 'src/app/dialogs/enum';
 import { Router } from '@angular/router';
+import { HeaderStore } from 'src/app/stores/app-stores/header-store';
 @Component({
     selector: 'app-company',
     templateUrl: './company.component.html',
@@ -19,7 +20,7 @@ import { Router } from '@angular/router';
     styleUrls: ['./company.component.scss'],
 })
 export class CompanyComponent implements OnInit {
-  constructor(private store: CompanyStore,private router: Router) {}
+  constructor(private store: CompanyStore,private router: Router,private headerStore: HeaderStore) {}
 
   displayedColumns = ['id', 'name', 'email', 'contact', 'industry'];
   companyService = inject(CompanyService);
@@ -29,10 +30,13 @@ export class CompanyComponent implements OnInit {
 
   ngOnInit(): void {
     this.store.refresh().subscribe();
+    this.headerStore.unsetOverview();
   }
 
   goToOverview(id: number) {
     this.router.navigate(['/companies', id, 'overview']);
+    this.headerStore.setRoute(this.router.url);
+    this.headerStore.setOverview();
   }
 
   updateCompany(id: number, changes: Partial<Company>) {

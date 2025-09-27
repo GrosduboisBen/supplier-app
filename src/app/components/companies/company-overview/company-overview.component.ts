@@ -5,6 +5,7 @@ import { MATERIAL_IMPORTS } from 'material.import';
 import { Company } from 'src/app/models/company';
 import { Project } from 'src/app/models/project';
 import { ProjectService } from 'src/app/services/project.service';
+import { HeaderStore } from 'src/app/stores/app-stores/header-store';
 import { CompanyStore } from 'src/app/stores/entities-stores/company-store';
 
 @Component({
@@ -23,7 +24,13 @@ export class CompanyOverviewComponent implements OnInit {
   company = signal<Company | null>(null);
   projects = signal<Project[]>([]);
 
+  constructor(private headerStore:HeaderStore){}
+
   ngOnInit(): void {
+    if(this.headerStore.status() === false) {
+      this.headerStore.setOverview();
+      this.headerStore.setRoute('/companies');
+    }
     const id = Number(this.route.snapshot.paramMap.get('id'));
 
     // hydrate la company si nécessaire
