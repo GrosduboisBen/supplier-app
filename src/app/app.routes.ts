@@ -6,12 +6,14 @@ import { ProviderComponent } from './components/provider/provider.component';
 import { OrdersComponent } from './components/orders/orders.component';
 import { EvaluationsComponent } from './components/evaluations/evaluations.component';
 import { CompanyOverviewComponent } from './components/companies/company-overview/company-overview.component';
+import { ProjectOverviewComponent } from './components/projects/project-overview/project-overview.component';
 // ajoute les autres composants
 
 export const appRoutes: Routes = [
   { path: 'companies', component: CompanyComponent },
   { path: 'companies/:id/overview', component: CompanyOverviewComponent},
   { path: 'projects', component: ProjectsComponent },
+  { path: 'projects/:id/:companyId/overview', component: ProjectOverviewComponent},
   { path: 'missions', component: MissionsComponent },
   { path: 'providers', component: ProviderComponent },
   { path: 'orders', component: OrdersComponent },

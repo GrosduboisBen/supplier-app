@@ -1,11 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { MATERIAL_IMPORTS } from 'material.import';
 import { DialogEmitType } from 'src/app/dialogs/enum';
 import { ProjectFormComponent } from 'src/app/dialogs/project-form/project-form.component';
 import { Project } from 'src/app/models/project';
 import { ProjectService } from 'src/app/services/project.service';
+import { HeaderStore } from 'src/app/stores/app-stores/header-store';
 import { ProjectStore } from 'src/app/stores/entities-stores/project-store';
 
 @Component({
@@ -20,7 +22,7 @@ import { ProjectStore } from 'src/app/stores/entities-stores/project-store';
 })
 export class ProjectsComponent implements OnInit {
   // injected store via constructor (keeps store testable and consistent)
-  constructor(private store: ProjectStore) {}
+  constructor(private store: ProjectStore,private router: Router,private headerStore: HeaderStore) {}
 
   // columns used by the template
   displayedColumns = ['id', 'title', 'description', 'budget', 'company'];
@@ -39,9 +41,10 @@ export class ProjectsComponent implements OnInit {
     this.store.refresh().subscribe();
   }
 
-  // force reload all entities
-  forceReloadAll() {
-    this.store.refresh().subscribe();
+  goToOverview(id: number,companyId: number) {
+    this.router.navigate(['/projects', id, companyId, 'overview']);
+    this.headerStore.setRoute(this.router.url);
+    this.headerStore.setOverview();
   }
 
   openDialog(project?: Project): void {
@@ -65,9 +68,8 @@ export class ProjectsComponent implements OnInit {
         }
       });
     }
-
-  // delete: remove by id
-  deleteProject(id: number): void {
-    this.store.remove(id).subscribe();
-  }
+  // TODO Implements correctly designed delete method.
+  // deleteProject(id: number): void {
+  //   this.store.remove(id).subscribe();
+  // }
 }
