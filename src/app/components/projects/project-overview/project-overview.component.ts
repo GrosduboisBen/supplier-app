@@ -18,7 +18,7 @@ import { ProjectStore } from 'src/app/stores/entities-stores/project-store';
   styleUrl: './project-overview.component.scss'
 })
 export class ProjectOverviewComponent implements OnInit {
-private route = inject(ActivatedRoute);
+  private route = inject(ActivatedRoute);
   private projectStore = inject(ProjectStore);
   private companyService = inject(CompanyService);
 
