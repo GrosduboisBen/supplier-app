@@ -25,7 +25,6 @@ export class CompanyComponent implements OnInit {
   displayedColumns = ['id', 'name', 'email', 'contact', 'industry'];
   companyService = inject(CompanyService);
   dialog = inject(MatDialog);
-
   companies = this.store.all;
 
   ngOnInit(): void {

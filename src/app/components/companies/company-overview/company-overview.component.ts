@@ -33,7 +33,6 @@ export class CompanyOverviewComponent implements OnInit {
     }
     const id = Number(this.route.snapshot.paramMap.get('id'));
 
-    // hydrate la company si nécessaire
     this.companyStore.refreshOne(id).subscribe({
       next: (company) => this.company.set(company)
     });
