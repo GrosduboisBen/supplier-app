@@ -36,23 +36,24 @@ export class HeaderComponent implements OnInit {
   }
 
   private updateSubtitle(url: string) {
-    switch(url) {
-      case '/companies':
+    const baseNavigation = url.split('/')[1]
+    switch(baseNavigation) {
+      case 'companies':
         this.subtitle = 'Companies';
         break;
-      case '/projects':
+      case 'projects':
         this.subtitle = 'Projects';
         break;
-      case '/providers':
+      case 'providers':
         this.subtitle = 'Providers';
         break;
-      case '/orders':
+      case 'orders':
         this.subtitle = 'Orders';
         break;
-      case '/missions':
+      case 'missions':
         this.subtitle = 'Missions';
         break;
-      case '/evaluations':
+      case 'evaluations':
         this.subtitle = 'Evaluations';
         break;
       default:
